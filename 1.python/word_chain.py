@@ -11,6 +11,8 @@ def word_chain(com_word):
         # 1 user -> com
         if status == 1:
             use_word = input('입력하세요 \n')
+            if use_word == '':
+                use_word = input('입력하세요 \n')
             print('-'*10)
             if use_word in used_words:
                 return '아까 했던 말이야. 내가 이겼어!<끝>'

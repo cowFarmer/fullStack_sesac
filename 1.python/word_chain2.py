@@ -15,13 +15,15 @@ def word_chain(com_word):
         # 1 user -> com
         if status == 1:
             use_word = input('입력하세요 \n')
+            if use_word == '':
+                use_word = input('입력하세요 \n')
             print('-'*10)
             if use_word in used_words:
                 return '아까 했던 말이야. 내가 이겼어!<끝>'
             # 두음법칙 적용하고 넘어가려면 find 값이 같아야 함 -1이 됐든 숫자가 됐든
             elif use_word[0] != com_word[-1]:
                 return '글자가 안 이어져. 내가 이겼다!<끝>'
-            elif use_word[0] == com_word[-1] or rule_of_thumbs.find(com_word[-1]) == rule_of_thumbs.find(use_word[-1]):
+            elif use_word[0] == com_word[-1] or rule_of_thumbs.find(com_word[-1]) == trans_rule_of_thumbs.find(use_word[-1]):
                 used_words.append(use_word)
             # 중복 제거 in com_words
             if use_word in com_words:
