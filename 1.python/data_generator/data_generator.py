@@ -6,12 +6,30 @@ names = ['John', 'Jane', 'Michael', 'Emily', 'William', 'Olivia']
 cities = ['New York', 'Los Angeles', 'Chicago', 'Houston', 'Philadelphia']
 gender_type = ['male', 'female']
 
+# 성, 이름
+last_names = []
+first_names = []
+
+# class GeneratorHuman:
+#     def __init__(self, make_number, result_type, cities_file, names_file):
+#         self.make_number = make_number
+#         self.result_type = result_type
+#         self.cities_file = cities_file
+#         self.names_file = names_file
+    
+        
+
+
+
 def generate_name():
     return random.choice(names)
 
+def generate_name_kor():
+    return random.choice(last_names)+random.choice(first_names)
+
 def generate_birthday():
     mdays = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-    year = random.randint(1980,2023)
+    year = random.randint(1980,2013)
     month = random.randint(1,12)
     # leap year
     if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
@@ -25,12 +43,18 @@ def generate_gender():
 def generate_cities():
     return f"{random.randint(1,100)} {random.choice(cities)}"
 
+def generate_cities_kor():
+    korea_areas = ["서울", "경기", "강원", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주"]
+    seoul_areas = ["강남구", "강동구", "강서구", "강북구", "관악구", "광진구", "구로구", "금천구", "노원구", "동대문구", "도봉구", "동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구", "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구"]
+    road_names = ["로", "길", "대로", "번길"]
+    return f"{random.choice(korea_areas)} {random.choice(seoul_areas)} {random.randint(1, 100)}{random.choice(road_names)} {random.randint(1, 100)}"
+
 def sum_human_info(count, data_list):
     for _ in range(count):
-        name = generate_name()
+        name = generate_name_kor()
         birthday = generate_birthday()
         gender = generate_gender()
-        city = generate_cities()
+        city = generate_cities_kor()
         
         data_list.append(f"{name},{birthday},{gender},{city}")
 
@@ -59,7 +83,8 @@ def write_data_to_csv(filename):
             data_writer = csv.writer(file)
             data_writer.writerow([line])
         file.close()
-        
+
+# result type 선택하기
 def result_type(csv_or_console):
     if csv_or_console == "csv":
         write_data_to_csv('test')
@@ -72,8 +97,13 @@ def result_type(csv_or_console):
 make_number = int(input("생성할 데이터 개수를 입력하세요.\n"))
 datas = ["Name,Birthday,Gender,Address"]
 
-read_file('cities', cities)
-read_file('names', names)
+# 영문용
+# read_file('cities', cities)
+# read_file('names', names)
+
+# 한글용
+read_file('last_names', last_names)
+read_file('first_names', first_names)
 sum_human_info(make_number, datas)
 
 
