@@ -9,21 +9,7 @@ gender_type = ['male', 'female']
 # 성, 이름
 last_names = []
 first_names = []
-
-# class GeneratorHuman:
-#     def __init__(self, make_number, result_type, cities_file, names_file):
-#         self.make_number = make_number
-#         self.result_type = result_type
-#         self.cities_file = cities_file
-#         self.names_file = names_file
     
-        
-
-
-
-def generate_name():
-    return random.choice(names)
-
 def generate_name_kor():
     return random.choice(last_names)+random.choice(first_names)
 
@@ -39,9 +25,6 @@ def generate_birthday():
 
 def generate_gender():
     return random.choice(gender_type)
-
-def generate_cities():
-    return f"{random.randint(1,100)} {random.choice(cities)}"
 
 def generate_cities_kor():
     korea_areas = ["서울", "경기", "강원", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주"]
@@ -97,16 +80,9 @@ def result_type(csv_or_console):
 make_number = int(input("생성할 데이터 개수를 입력하세요.\n"))
 datas = ["Name,Birthday,Gender,Address"]
 
-# 영문용
-# read_file('cities', cities)
-# read_file('names', names)
-
-# 한글용
 read_file('last_names', last_names)
 read_file('first_names', first_names)
 sum_human_info(make_number, datas)
 
-
-        
 result_csv_or_console = input("결과물 출력을 위해 하나만 입력해주세요. 'csv' or 'console'\n").lower()
 result_type(result_csv_or_console)
