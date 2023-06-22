@@ -33,10 +33,10 @@ class GenerateBirthday:
 # 나이 만들기
 class GenerateAge():
     def __init__(self, birthday):
-        self.today = str(datetime.datetime.now()).split(' ')[0]
+        self.today = str(datetime.datetime.now()).split(" ")[0]
         self.birthday = birthday
-        self.birthday = ''.join(self.birthday.split('-'))
-        self.today = ''.join(self.today.split('-'))
+        self.birthday = "".join(self.birthday.split("-"))
+        self.today = "".join(self.today.split("-"))
     
         # 만 나이 구하기
         self.birthday_year, self.birthday_md = int(self.birthday[:4]), int(self.birthday[4:])
@@ -82,13 +82,13 @@ class GeneratorData:
             age = GenerateAge(birthday).get_age()
             gender = self.gen_gender.get_gender()
             address = self.gen_address.get_address()
-            datas.append([name, birthday, age, gender, address])
+            datas.append([name, gender, age, birthday, address])
         return datas
 
 # 상점 데이터 만들기
 class GenerateStore:
     def __init__(self):
-        self.store_list = ['스타벅스', '투썸플레이스', '메가커피', '이디야', '빽다방', '컴포즈커피', '커피에반하다', '요거프레소', '커피베이', '할리스', '엔제리너스']
+        self.store_list = ["스타벅스", "투썸플레이스", "메가커피", "이디야", "빽다방", "컴포즈커피", "커피에반하다", "요거프레소", "커피베이", "할리스", "엔제리너스"]
     
     def get_name(self):
         self.name = random.choice(self.store_list)
@@ -123,22 +123,41 @@ class ReadFile:
         self.append_list = append_list
     
     def read(self):
-        with open("./src/" + self.filename, 'r') as file:
+        with open("./src/" + self.filename, "r") as file:
             lines = file.readlines()
             for line in lines:
                 self.append_list.append(line.strip())
         file.close()
         return list(set(self.append_list))
-            
-# 파일 출력하기
+ 
+# 사람 파일 쓰기
+class WriterData(GeneratorData):
+    def write_person_data(self, count, save_file_name, category):
+        datas = self.generate_data(count)
+        self.save_file_name = save_file_name
+        self.category = category
+
+        if category == "user":
+            header = ["Name", "Gender", "Age", "Birthday", "Address"]
+        elif category == "store":
+            header = ["Name", "Type", "Address"]
+
+        with open("./src/" + self.save_file_name, "w", newline="\n") as file:
+            csv_file = csv.writer(file)
+            csv_file.writerow(header)
+            for line in datas:
+                csv_file.writerow(line)
+            file.close()
+                        
+# 사람 파일 출력하기
 class PrinterData(GeneratorData):
     def print_data(self, count):
         datas = self.generate_data(count)
         for data in datas:
             print(data)
 
-# 파일 쓰기
-class WriterData(GeneratorStoreData):
+# 카페 파일 쓰기
+class WriterCafeData(GeneratorStoreData):
     def write_person_data(self, count, save_file_name, category):
         datas = self.generate_data(count)
         self.save_file_name = save_file_name
@@ -164,6 +183,7 @@ class PrinterCafeData(GeneratorStoreData):
             print(data)
 
 if __name__ == "__main__":
+    # 좀 더 스마트하게 바꿔야 함
     data_category_list = ["user", "store", "item"]
     
     data_category = input("데이터 유형을 입력하세요 'User', 'Store' or 'Item': ")
@@ -172,22 +192,24 @@ if __name__ == "__main__":
         
     count_generate_items = int(input("생성할 데이터 개수를 입력하세요: "))
     input_type = input("출력 타입을 입력하세요 'console', 'csv': ")
-    person_save_file_name = "person_data.csv"
-    cafe_save_file_name = "cafe_data.csv"
 
 
-    # 좀 더 스마트하게 바꿔야 함
     if data_category == "user":
         printer = PrinterData()
+        writer = WriterData()
+        save_file_name = "person_data.csv"
+
         
     elif data_category == "store":
         printer = PrinterCafeData()
+        writer = WriterCafeData()
+        save_file_name = "cafe_data.csv"
     
-    writer = WriterData()    
     
     if input_type == "console":
+        
         printer.print_data(count_generate_items)
     elif input_type == "csv":
-        writer.write_person_data(count_generate_items, cafe_save_file_name, data_category)
+        writer.write_person_data(count_generate_items, save_file_name, data_category)
     else:
         input_type = input("출력 타입을 알맞게 입력하세요 'console', 'csv' \n")
