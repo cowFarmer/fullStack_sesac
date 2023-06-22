@@ -156,7 +156,7 @@ class WriterData(GeneratorData):
             file.close()
 
 # Input 받아서 검증 후 반환하는 클래스
-class InputTypeReturn:
+class CheckerInputType:
     # 데이터 유형
     def category_list(self):
         category_list = ["user", "store", "item"]
@@ -191,7 +191,7 @@ class InputTypeReturn:
         return input_type
     
 if __name__ == "__main__":
-    checker = InputTypeReturn()
+    checker = CheckerInputType()
     data_category = checker.category_list()
     count_generate_items = checker.count_generate_items()
     input_type = checker.input_type()
