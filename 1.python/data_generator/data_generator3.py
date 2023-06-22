@@ -185,7 +185,6 @@ class PrinterCafeData(GeneratorStoreData):
 if __name__ == "__main__":
     # 좀 더 스마트하게 바꿔야 함
     data_category_list = ["user", "store", "item"]
-    
     data_category = input("데이터 유형을 입력하세요 'User', 'Store' or 'Item': ")
     if data_category.lower() not in data_category_list:
         data_category = input("데이터 유형을 알맞게 입력하세요 'User', 'Store' or 'Item': ")
@@ -198,7 +197,6 @@ if __name__ == "__main__":
         printer = PrinterData()
         writer = WriterData()
         save_file_name = "person_data.csv"
-
         
     elif data_category == "store":
         printer = PrinterCafeData()
@@ -207,7 +205,6 @@ if __name__ == "__main__":
     
     
     if input_type == "console":
-        
         printer.print_data(count_generate_items)
     elif input_type == "csv":
         writer.write_person_data(count_generate_items, save_file_name, data_category)
