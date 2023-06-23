@@ -23,7 +23,7 @@ class GenerateUser:
         age = GenerateAge(birthday).get_age()
         gender = self.gen_gender.get_gender()
         address = self.gen_address.get_address()
-        return [uuid, gender, age, birthday, address]
+        return [uuid, name, gender, age, birthday, address]
     
 class GenerateStore:
     def __init__(self):

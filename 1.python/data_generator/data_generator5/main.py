@@ -5,7 +5,7 @@ from gen.generator import GenerateUser, GenerateStore, GenerateItem
 
 def generate_user(count):
     users = []
-    header = ["UUID", "Name","Gender","Age","Birthday","Address"]
+    header = ["UUID","Name","Gender","Age","Birthday","Address"]
     users.append(header)
     for _ in range(count):
         user = GenerateUser().generate()
@@ -14,7 +14,7 @@ def generate_user(count):
 
 def generate_store(count):
     stores = []
-    header = ["UUID", "Name","Type","Address"]
+    header = ["UUID","Name","Type","Address"]
     stores.append(header)
     for _ in range(count):
         store = GenerateStore().generate()
@@ -23,13 +23,13 @@ def generate_store(count):
 
 def generate_item(count):
     items = []
-    header = ["UUID", "Name", "Type", "UnitPrice"]
+    header = ["UUID","Name","Type","UnitPrice"]
     items.append(header)
     for _ in range(count):
         item = GenerateItem().generate()
         items.append(item)
     return items
-        
+
 
 def main():
     gen_types = ["user", "store", "item"]
