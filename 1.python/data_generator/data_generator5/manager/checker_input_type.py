@@ -1,14 +1,14 @@
 class CheckerInputType:
     # 데이터 유형
-    def category_list(self):
-        category_list = ["user", "store", "item"]
+    def category_list(self, gen_types):
+        category_list = gen_types
         while True:
-            data_category = input("데이터 유형을 입력하세요 'User', 'Store' or 'Item': ")
+            data_category = input(f"데이터 유형을 입력하세요 {category_list}: ")
             if data_category.lower() in category_list:
                 data_category = data_category.lower()
                 break
             else:
-                print("데이터 유형을 알맞게 입력하세요 'User', 'Store' or 'Item': ")
+                print(f"데이터 유형을 알맞게 입력하세요 {category_list}: ")
         return data_category
     
     # 데이터 개수
@@ -22,12 +22,12 @@ class CheckerInputType:
         return count_generate_items
     
     # 데이터 아웃풋 타입
-    def input_type(self):
-        input_type_list = ["console", "csv"]
+    def input_type(self, output_type):
+        input_type_list = output_type
         while True:
-            input_type = input("출력 타입을 입력하세요 'console', 'csv': ")
+            input_type = input(f"출력 타입을 입력하세요 {input_type_list}: ")
             if input_type.lower() in input_type_list:
                 break
             else:
-                print("출력 타입을 알맞게 입력하세요 'console', 'csv': ")
+                print(f"출력 타입을 알맞게 입력하세요 {input_type_list}: ")
         return input_type

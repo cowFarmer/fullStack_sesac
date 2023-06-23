@@ -1,6 +1,6 @@
 import random
 
-class GenerateStoreName:
+class GenerateStoreType:
     def __init__(self, store):
         self.store = store
     
