@@ -1,0 +1,19 @@
+#cat1 {
+    width: 20%;
+    float: left;
+    margin-right: 10px;
+}
+
+#cat2 {
+    width: 20%;
+    float: right;
+    margin-left: 10px;
+}
+
+.container {
+    border: 1px solid gray;
+}
+
+p {
+    clear: right;
+}

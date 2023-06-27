@@ -1,0 +1,20 @@
+div {
+    height: 300px;
+}
+
+.bg {
+    background-color: orange;
+}
+
+.center {
+    background-color: skyblue;
+}
+
+.fixed {
+    width: 100px;
+    height: 100px;
+    background-color: turquoise;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+}
