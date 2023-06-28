@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INFO</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <div class="header_container">
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/user">user</a></li>
+                <li><a href="/store">store</a></li>
+                <li><a href="/item">item</a></li>
+                <li><a href="/order">order</a></li>
+                <li><a href="/order_item">order item</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        <table>
+            {% for user in users_info %}
+            <tr>
+                <td>{{ user[0] }}</td>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>

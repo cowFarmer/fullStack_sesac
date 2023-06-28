@@ -1,0 +1,44 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+td {
+    padding: 5px;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+ul, li, body {
+    padding: 0;
+    margin: 0;
+
+}
+
+.header_container {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_container ul {
+    display: flex;
+}
+
+ul li a{
+    padding: 10px 12px;
+}
+
+table {
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

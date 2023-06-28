@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>info_{{ user_info['Name'] }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header_container">
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/user">user</a></li>
+                <li><a href="/store">store</a></li>
+                <li><a href="/item">item</a></li>
+                <li><a href="/order">order</a></li>
+                <li><a href="/order_item">order item</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="container">
+        <table>
+            <tr>
+                <td>{{ user_info['Id'] }}</td>
+                <td>{{ user_info['Name'] }}</td>
+                <td>{{ user_info['Gender'] }}</td>
+                <td>{{ user_info['Age'] }}</td>
+                <td>{{ user_info['Birthdate'] }}</td>
+                <td>{{ user_info['Address'] }}</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

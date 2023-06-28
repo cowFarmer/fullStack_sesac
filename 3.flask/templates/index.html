@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>flask render</title>
+</head>
+<body>
+    <h1>플라스크 홈페이지 입니다.</h1>
+    <p>랜더링 해보았습니다.</p>
+    <hr>
+    {% for user in username %}
+        {% if user == "admin" %}
+            <h3>안녕하세요 관리자님</h3>
+        {% else %}
+            <p>안녕하세요, {{user}}님</p>
+        {% endif %}
+    {% endfor %}
+    <input type="date">
+    <input type="date">
+    <button type="menu">asdf</button>
+</body>
+</html>
