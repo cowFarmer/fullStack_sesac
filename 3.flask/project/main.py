@@ -42,9 +42,9 @@ def header():
 def big_user():
     page = request.args.get('page', default=1, type=int)
     search_name = request.args.get('name', default="", type=str)
+    search_name = search_name.strip()    
     data = []
     per_page = 5    
-    search_name = search_name.strip()    
                 
     with open("./csv/user.csv", "r") as file:
         lines = csv.DictReader(file, skipinitialspace=True)
