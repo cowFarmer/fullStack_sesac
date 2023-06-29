@@ -4,6 +4,15 @@ table, th, td {
     text-align: center;
 }
 
+table {
+    width: 100%;
+}
+
+th {
+    background-color: skyblue;
+    height: 30px;
+}
+
 td {
     padding: 5px;
 }
@@ -16,6 +25,12 @@ ul, li, body {
     padding: 0;
     margin: 0;
 
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+    opacity: 0.8;
 }
 
 .header_container {
@@ -41,4 +56,42 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+/* pagination start */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination_btn {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.pagination_num {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #808080;
+    margin: 10px 10px;
+}
+
+.pagination_num:hover {
+    background-color: skyblue;
+}
+
+.pagination_input {
+    display: flex;
+    justify-content: center;
+}
+
+.search {
+    margin: 10px;
 }

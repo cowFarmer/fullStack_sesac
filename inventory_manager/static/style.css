@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap');
+
+body {
+    margin: 0 auto;
+    font-family: "Nanum Gothic", "Helvetica", "serif";
+    font-size: 12px;
+}
+
+p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.item a {
+    text-decoration: none;
+    color: #000000;
+    opacity: 0.8;
+}
+
+
+
+/* header start */
+header {
+    position: fixed;
+    width: 100%;
+}
+
+.header_container {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.header_container ul {
+    display: flex;
+    align-items: center;
+}
+
+.header_container .item {
+    padding: 10px 20px;
+    padding: auto;
+}
+
+.header_container .item:hover {
+    background-color: #F2F4F6;
+    border-radius: 12px;
+}
+
+.header_container .item:active {
+    font-weight: 700;
+}
+
+.header_container .logo {
+    font-size: 20px;
+    font-weight: 700;
+}
+/* header end */
+
+/* hr line */
+hr {
+    background-color: rgba(0, 27, 55, 0.1);
+}
+/* ht line end */
+
+/* main page start */
+.main_area {
+    height: 580px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+.main_area p {
+    font-size: 48px;
+    color: #6E6E73;
+    align-items: center;
+    font-weight: 700;
+}
+
+.main_area span {
+    font-size: 48px;
+    color: #000000;
+}
+
+.main_vertical {
+    display: block;
+}
+
+#main_guide {
+    width: 650px;
+    height: 350px;
+    border-radius: 42px;
+    background-color: #F2F4F6;
+    margin-top: 40px;
+}
+/* main page end */
+
+/* manager page start */
+.main_container_width {
+    width: 100%;
+    padding-top: 50px;
+}
+
+.main_container {
+    display: flex;
+    width: 100%;
+}
+
+.left_container {
+    position: fixed;
+    max-width: 230px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.left_menu {
+    width: 230px;
+}
+
+.main_article_container {
+    width: 100%;
+    padding-left: 230px;
+    padding-right: 150px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+/* manager page end */
+
+
+/* 
+
+.bottom_line {
+    width: 100%;
+    border-bottom: 1px solid #979797;
+    opacity: 0.5;
+    margin: 42px 0;
+}
+
+.vertical_line {
+    height: 100%;
+    border-right: 1px solid #979797;
+    opacity: 0.5;
+}
+
+header .bottom_line {
+    margin-top: 0px;
+    margin-bottom: 25px;
+}
+
+aside {
+    display: block;
+}
+
+.detail_item {
+    float: left;
+    width: 100%;
+}
+
+section {
+    float: right;
+    width: 80%;
+}
+
+.main_article {
+    max-width: 1000px;
+}
+
+.left_menu {
+    position: fixed;
+    display: inline-block;
+    width: 230px;
+    min-height: 100%;
+    font-size: 15px;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.left_menu .a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    height: 48px;
+}
+
+.left_menu a:active {
+    color: #1069EF;
+    font-weight: 700;
+}
+
+.left_menu a:hover {
+    background-color: #F2F4F6;
+    border-radius: 12px;
+}
+
+.search_area {
+    width: 100%;
+    background-color: #F2F4F6;
+    border-radius: 21px;
+    padding: 35px;
+    
+}
+
+h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #000000;
+    opacity: 0.8;
+    font-weight: 700;
+}
+
+.search_area li input {
+    margin: 5px 15px;
+}
+
+.search_area .button {
+    width: 100%;
+    display: flex;
+    padding: 25px;
+    justify-content: space-evenly;
+}
+
+.search_area .button #create{
+    color: #000000;
+    opacity: 0.8;
+    font-size: 15px;
+    width: 355px;
+    height: 55px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    border: none;
+    margin-right: 35px;
+    
+}
+
+.search_area .button #apply {
+    color: #1069EF;
+    font-size: 15px;
+    width: 355px;
+    height: 55px;
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    border: none;
+    margin-left: 35px;
+}
+
+.result {
+    width: 100%;
+}
+
+.result_area {
+    width: 100%;
+    background-color: #F2F4F6;
+    border-radius: 21px;
+    padding: 35px;
+    display: block;
+} */
