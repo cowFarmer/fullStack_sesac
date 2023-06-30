@@ -40,7 +40,9 @@
                         {% endfor %}
                     </tr>
                     {% for data in datas %}
-                    <tr onclick="location.href='/user/{{ data['Id'] }}'">
+                    <!-- 따옴표 반복 에러 해결용 변수 할당 -->
+                    {% set data_id = data['Id'] %}
+                    <tr onclick="location.href='/user/{{ data_id }}'">
                         {% for key, user in data.items() %}
                         <!-- TODO key값이 name인 경우만 a태그 넣기 나중에 하이라이트로 변경-->
                         {% if key != "Id" %}
@@ -58,34 +60,33 @@
             <div class="pagination">
                 <div class="pagination_btn">
                     <!-- 이전 버튼 처리 -->
-                    <div class="pagination_num"><a href="/user?page=1">&laquo;</a></div>
+                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}">&laquo;</a></div>
                     {% if page > 1%}
-                    <div class="pagination_num"><a href="/user?page={{ page-1 }}"><</a></div>
+                    <div class="pagination_num"><a href="/user?page={{ page-1 }}&name={{ search_name }}"><</a></div>
                     {% else %}
                     <div class="pagination_num"><</div>
-                            {% endif %}
-                            <!-- 메인 숫자 처리 -->
-                            {% for i in page_list %}
-                            {% if i == page %}
-                            <div class="pagination_num" style="font-weight: bold;">{{ i }}</div>
-                            {% else %}
-                            <div class="pagination_num"><a href="/user?page={{ i }}">{{ i }}</a></div>
-                            {% endif %}
-                            {% endfor %}
-                            <!-- 다음 페이지 -->
-                            {% if page < total_page %} <div class="pagination_num"><a
-                                    href="/user?page={{ page+1 }}">></a>
-                    </div>
+                    {% endif %}
+                    <!-- 메인 숫자 처리 -->
+                    {% for i in page_list %}
+                        {% if i == page %}
+                        <div class="pagination_num" style="font-weight: bold;">{{ i }}</div>
+                        {% else %}
+                        <div class="pagination_num"><a href="/user?page={{ i }}&name={{ search_name }}">{{ i }}</a></div>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- 다음 페이지 -->
+                    {% if page < total_page %}
+                    <div class="pagination_num"><a href="/user?page={{ page+1 }}&name={{ search_name }}">></a></div>
                     {% else %}
                     <div class="pagination_num">></div>
                     {% endif %}
-                    <div class="pagination_num"><a href="/user?page={{ total_page }}">&raquo;</a></div>
+                    <div class="pagination_num"><a href="/user?page={{ total_page }}&name={{ search_name }}">&raquo;</a></div>
                 </div>
 
                 <!-- pagination의 input -->
                 <div class="pagination_input">
                     <form action="/user" method="GET">
-                        <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="번호값">
+                        <input type="number" name="page" min="1" max="{{ total_page }}&name={{ search_name }}" placeholder="번호값">
                         <button type="submit">적용</button>
                     </form>
                 </div>

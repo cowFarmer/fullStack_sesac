@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 import csv
 
+# TODO user_info에서 user가 주문한 order 모아보기
+
 app = Flask(__name__, static_folder="static")
 
 user_csv_file = "./csv/user.csv"
@@ -22,7 +24,6 @@ def user():
     search_name = request.args.get('name', default="", type=str).strip()
     data = []
     per_page = 5    
-                
     with open(user_csv_file, "r") as file:
         lines = csv.DictReader(file, skipinitialspace=True)
         headers = next(lines)
