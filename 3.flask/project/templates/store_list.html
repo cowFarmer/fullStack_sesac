@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFO</title>
+    <title>USER_INFO</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -21,17 +21,29 @@
             </ul>
         </div>
     </header>
-    <div class="container">
-        <table>
-            {% for user in users_info %}
-            <tr>
-                <td>{{ user[0] }}</td>
-                <td>{{ user[1] }}</td>
-                <td>{{ user[2] }}</td>
-                <td>{{ user[3] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+    <div class="main_container">
+        <div class="vertical_container">
+            <div class="container">
+                <table>
+                    <tr class="header">
+                        {% for header in headers %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for data in datas %}
+                    <tr onclick="location.href='/store/{{ data['Id'] }}'">
+                        {% for key, value in data.items() %}
+                        <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="go_back">
+                <!-- <a href="javascript:history.back()">뒤로가기</a> -->
+                <button onclick="window.history.back()">뒤로가기</button>
+            </div>
+        </div>
     </div>
 </body>
 

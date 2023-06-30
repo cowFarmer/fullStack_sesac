@@ -11,6 +11,7 @@ table {
 th {
     background-color: skyblue;
     height: 30px;
+    padding: 0 30px;
 }
 
 td {
@@ -21,7 +22,7 @@ ul, ol {
     list-style: none;
 }
 
-ul, li, body {
+ul, li, body, input, button {
     padding: 0;
     margin: 0;
 
@@ -33,6 +34,12 @@ a {
     opacity: 0.8;
 }
 
+input {
+    width: 150px;
+    height: 20px;
+    text-align: center;
+}
+
 .header_container {
     height: 50px;
     display: flex;
@@ -42,10 +49,33 @@ a {
 
 .header_container ul {
     display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-ul li a{
-    padding: 10px 12px;
+.header_container li {
+    display: flex;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_container ul li a {
+    padding: 10px 15px;
+}
+
+.main_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vertical_container {
+    width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 table {
@@ -56,15 +86,20 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px 30px;
+    width: 100%
+}
+
+.container a{
+    color: #005bbc;
+    font-weight: bold;
+}
+
+.container .header {
+    cursor: default;
 }
 
 /* pagination start */
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 .pagination_btn {
     display: flex;
@@ -79,19 +114,42 @@ table {
     align-items: center;
     width: 30px;
     height: 30px;
-    border: 1px solid #808080;
     margin: 10px 10px;
 }
 
-.pagination_num:hover {
-    background-color: skyblue;
+/* hover */
+tr:hover {
+    background-color: rgb(195, 229, 243);
+    cursor: pointer;
+}
+
+.pagination_num:hover, .header_container li:hover {
+    background-color: rgb(195, 229, 243);
+    border-radius: 15px;
 }
 
 .pagination_input {
     display: flex;
+    height: 40px;
     justify-content: center;
+    align-items: center;
+}
+
+
+.pagination_input input {
+    width: 50px;
+}
+
+button {
+    width: 50px;
+    height: 24px;
+}
+
+.go_back button {
+    width: 100px;
 }
 
 .search {
     margin: 10px;
 }
+

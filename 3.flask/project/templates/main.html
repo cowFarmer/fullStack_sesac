@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INFO</title>
+    <title>USER</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -21,24 +21,76 @@
             </ul>
         </div>
     </header>
-    <div class="container">
-        <table>
-            {% for user in users_info %}
-            <tr>
-                {% if user[0] == 'Id' %}
-                <td>{{ user[0] }}</td>
-                {% else %}
-                <td><a href="/user/{{ user[0] }}">{{ user[0] }}</a></td>
-                {% endif %}
-                <td>{{ user[1] }}</td>
-                <td>{{ user[2] }}</td>
-                <td>{{ user[3] }}</td>
-                <td>{{ user[4] }}</td>
-                <td>{{ user[5] }}</td>
+    <div class="main_container">
+        <div class="vertical_container">
+            <!-- 이름 검색 -->
+            <div class="search">
+                <form action="/user" method="GET">
+                    <input type="text" name="name" placeholder="사용자 이름을 입력하세요">
+                    <button type="submit">검색</button>
+                </form>
+            </div>
+            <div class="container">
+                <table>
+                    <tr class="header">
+                        {% for header in headers %}
+                            {% if header != "Id" %}
+                            <th>{{ header }}</th>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% for data in datas %}
+                    <tr onclick="location.href='/user/{{ data['Id'] }}'">
+                        {% for key, user in data.items() %}
+                        <!-- TODO key값이 name인 경우만 a태그 넣기 나중에 하이라이트로 변경-->
+                        {% if key != "Id" %}
+                            {% if key == "Name" %}
+                            <td><a href="/user/{{ data['Id'] }}">{{ user }}</a></td>
+                            {% else %}
+                            <td>{{ user }}</td>
+                            {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="pagination">
+                <div class="pagination_btn">
+                    <!-- 이전 버튼 처리 -->
+                    <div class="pagination_num"><a href="/user?page=1">&laquo;</a></div>
+                    {% if page > 1%}
+                    <div class="pagination_num"><a href="/user?page={{ page-1 }}"><</a></div>
+                    {% else %}
+                    <div class="pagination_num"><</div>
+                            {% endif %}
+                            <!-- 메인 숫자 처리 -->
+                            {% for i in page_list %}
+                            {% if i == page %}
+                            <div class="pagination_num" style="font-weight: bold;">{{ i }}</div>
+                            {% else %}
+                            <div class="pagination_num"><a href="/user?page={{ i }}">{{ i }}</a></div>
+                            {% endif %}
+                            {% endfor %}
+                            <!-- 다음 페이지 -->
+                            {% if page < total_page %} <div class="pagination_num"><a
+                                    href="/user?page={{ page+1 }}">></a>
+                    </div>
+                    {% else %}
+                    <div class="pagination_num">></div>
+                    {% endif %}
+                    <div class="pagination_num"><a href="/user?page={{ total_page }}">&raquo;</a></div>
+                </div>
 
-            </tr>
-            {% endfor %}
-        </table>
+                <!-- pagination의 input -->
+                <div class="pagination_input">
+                    <form action="/user" method="GET">
+                        <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="번호값">
+                        <button type="submit">적용</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 

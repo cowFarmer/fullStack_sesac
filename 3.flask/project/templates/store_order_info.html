@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USER_INFO</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Store_Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"
 </head>
-
 <body>
     <header>
         <div class="header_container">
@@ -31,11 +29,11 @@
                         {% endfor %}
                     </tr>
                     {% for data in datas %}
-                    <tr>
-                        {% for key, user in data.items() %}
-                        <td>{{ user }}</td>
+                        <tr>
+                        {% for key, value in data.items() %}
+                        <td>{{ value }}</td>
                         {% endfor %}
-                    </tr>
+                        </tr>
                     {% endfor %}
                 </table>
             </div>
@@ -46,5 +44,4 @@
         </div>
     </div>
 </body>
-
 </html>
