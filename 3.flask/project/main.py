@@ -38,7 +38,7 @@ def readFile(filename=None, search_info=None, per_page=None, current_page=None):
             # name 먼저 필터링
             if "name" in search_info_filter.keys():
                 for line in lines:
-                    if search_info_filter["name"] in line["name"]:
+                    if search_info_filter["name"] in line["Name"]:
                         data.append(line)
                 search_info_filter.pop("name")
                 lines = data
@@ -48,7 +48,7 @@ def readFile(filename=None, search_info=None, per_page=None, current_page=None):
                     if all(line.get(key) == value for key, value in search_info_filter.items()):
                         data.append(line)
            
-        total_page = len(data) // per_page
+        total_page = (len(data) // per_page) + 1
         data_start_index = per_page * (current_page - 1)
         data_end_index = data_start_index + per_page
         slice_page_data = data[data_start_index:data_end_index]
