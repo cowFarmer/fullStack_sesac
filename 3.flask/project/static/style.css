@@ -35,7 +35,7 @@ a {
 }
 
 input {
-    width: 150px;
+    width: 50px;
     height: 20px;
     text-align: center;
 }
@@ -72,7 +72,7 @@ input {
 }
 
 .vertical_container {
-    width: 1200px;
+    width: 1000px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -149,7 +149,25 @@ button {
     width: 100px;
 }
 
-.search {
+.search_filter {
+    display: flex;
     margin: 10px;
 }
 
+.search_filter * {
+    margin-left: 10px;
+}
+
+.search_filter .search_gender {
+    display: flex;
+    align-items: center;
+}
+
+.search_filter .search_range {
+    display: flex;
+    align-items: center;
+}
+
+.search_filter .search_range input {
+    width: 150px;
+}

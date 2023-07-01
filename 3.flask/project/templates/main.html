@@ -25,10 +25,21 @@
         <div class="vertical_container">
             <!-- 이름 검색 -->
             <form action="/user" method="GET">
-                <div class="search">
-                    <input type="text" name="name" placeholder="사용자 이름을 입력하세요">
-                    <select name="gender"></select>
-                    <button type="submit">검색</button>
+                <div class="search_filter">
+                    <div class="search_input">
+                        <input type="text" name="name" placeholder="검색">
+                    </div>
+                    <div class="search_gender">
+                        <select name="gender">
+                            <option value="">성별</option>
+                            <option value="man">Man</option>
+                            <option value="woman">Woman</option>
+                        </select>
+                    </div>
+                    <div class="search_range">
+                        <input type="range" name="age_group" min="-10" max="50" step="10" value="-10">
+                    </div>
+                    <button type="submit">submit</button>
                 </div>
             </form>
             <div class="container">
@@ -61,10 +72,11 @@
             <div class="pagination">
                 <div class="pagination_btn">
                     <!-- 이전 버튼 처리 -->
-                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}">&laquo;</a></div>
                     {% if page > 1%}
+                    <div class="pagination_num">&laquo;</div>
                     <div class="pagination_num"><a href="/user?page={{ page-1 }}&name={{ search_name }}"><</a></div>
                     {% else %}
+                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}">&laquo;</a></div>
                     <div class="pagination_num"><</div>
                     {% endif %}
                     <!-- 메인 숫자 처리 -->
@@ -78,17 +90,20 @@
                     <!-- 다음 페이지 -->
                     {% if page < total_page %}
                     <div class="pagination_num"><a href="/user?page={{ page+1 }}&name={{ search_name }}">></a></div>
+                    <div class="pagination_num"><a href="/user?page={{ total_page }}&name={{ search_name }}">&raquo;</a></div>
                     {% else %}
                     <div class="pagination_num">></div>
+                    <div class="pagination_num">&raquo;</div>
                     {% endif %}
-                    <div class="pagination_num"><a href="/user?page={{ total_page }}&name={{ search_name }}">&raquo;</a></div>
+                    
                 </div>
 
                 <!-- pagination의 input -->
+                <!-- TODO 검색 후 max, 페이지 이동 버그 수정 필요 -->
                 <div class="pagination_input">
                     <form action="/user" method="GET">
-                        <input type="number" name="page" min="1" max="{{ total_page }}&name={{ search_name }}" placeholder="번호값">
-                        <button type="submit">적용</button>
+                        <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="page">
+                        <button type="submit">submit</button>
                     </form>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 # pageList return function
 def pageList(total_page, current_page):
-    print(total_page, current_page)
     if current_page <= 2:
         page_list = [_ for _ in range(1, min(total_page+1, 6))]
     elif current_page == total_page or current_page == total_page - 1:
