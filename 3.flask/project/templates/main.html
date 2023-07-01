@@ -24,12 +24,13 @@
     <div class="main_container">
         <div class="vertical_container">
             <!-- 이름 검색 -->
-            <div class="search">
-                <form action="/user" method="GET">
+            <form action="/user" method="GET">
+                <div class="search">
                     <input type="text" name="name" placeholder="사용자 이름을 입력하세요">
+                    <select name="gender"></select>
                     <button type="submit">검색</button>
-                </form>
-            </div>
+                </div>
+            </form>
             <div class="container">
                 <table>
                     <tr class="header">

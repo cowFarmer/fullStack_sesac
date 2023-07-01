@@ -1,16 +1,45 @@
 from flask import Flask, render_template, request
 import csv
-
-# TODO user_info에서 user가 주문한 order 모아보기
+from page.page_function import pageList
 
 app = Flask(__name__, static_folder="static")
 
 user_csv_file = "./csv/user.csv"
-big_user_csv_file = "./csv/big.csv"
+# user_csv_file = "./csv/big_user.csv"
 store_csv_file = "./csv/store.csv"
 item_csv_file = "./csv/item.csv"
 order_csv_file = "./csv/order.csv"
 order_item_csv_file = "./csv/orderitem.csv"
+
+# TODO mode에 따라서 search 결과 보여주기
+def readFile(filename=None, mode=None, search_info=None, per_page=None, current_page=None):
+    data = []
+    
+    if per_page == None:
+        return print("per_page 값을 넣어주세요")
+    
+    with open(filename, "r") as file:
+        lines = csv.DictReader(file, skipinitialspace=True)
+        headers = next(lines)
+        
+        # mode가 search인 경우 search_info의 데이터가 Name에 있으면 data 추가
+        if mode == "search":
+            for line in lines:
+                if search_info != "":
+                    if search_info in line("Name"):
+                        data.append(line)
+        else:
+            for line in lines:
+                data.append(line)
+        
+        total_page = len(data) // per_page
+        data_start_index = per_page * (current_page - 1)
+        data_end_index = data_start_index + per_page
+        slice_page_data = data[data_start_index:data_end_index]
+        page_list = pageList(total_page, current_page)
+        
+    return headers, total_page, slice_page_data, page_list
+        
 
 @app.route('/')
 def home():
@@ -19,31 +48,18 @@ def home():
 # user
 @app.route('/user')
 def user():
-    page = request.args.get('page', default=1, type=int)
+    # GET
+    current_page = request.args.get('page', default=1, type=int)
     # 검색 공백 제거 .strip() 추가
     search_name = request.args.get('name', default="", type=str).strip()
-    data = []
-    per_page = 5    
-    with open(user_csv_file, "r") as file:
-        lines = csv.DictReader(file, skipinitialspace=True)
-        headers = next(lines)
-        
-        for line in lines:
-            if search_name != "":
-                if search_name in line["Name"]:
-                    data.append(line)
-            else:
-                data.append(line)
-        
-    total_page = (len(data) // per_page) + 1
-    start_index = per_page * (page - 1)
-    end_index = start_index + per_page
-    page_data = data[start_index:end_index]
-    # 현재 페이지 기준 앞, 뒤로 2개씩 page_list 만들기
-    page_list = [_ for _ in range(max(1, page-2), min(total_page, page+2)+1)]
     
-    return render_template('main.html', headers=headers, datas=page_data, total_page=total_page, 
-                           page=page, page_list=page_list, search_name=search_name)
+    # OPTION
+    per_page = 5
+    
+    headers, total_page, slice_page_data, page_list = readFile(filename=user_csv_file, search_info=search_name, per_page=per_page, current_page=current_page)
+    
+    return render_template('main.html', headers=headers, datas=slice_page_data, total_page=total_page, 
+                           page=current_page, page_list=page_list, search_name=search_name)
 
 @app.route('/user/<id>')
 def user_info(id):
