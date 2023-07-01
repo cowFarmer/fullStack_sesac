@@ -46,20 +46,20 @@
                 <table>
                     <tr class="header">
                         {% for header in headers %}
-                            {% if header != "Id" %}
+                            {% if header != "id" %}
                             <th>{{ header }}</th>
                             {% endif %}
                         {% endfor %}
                     </tr>
                     {% for data in datas %}
                     <!-- 따옴표 반복 에러 해결용 변수 할당 -->
-                    {% set data_id = data['Id'] %}
+                    {% set data_id = data['id'] %}
                     <tr onclick="location.href='/user/{{ data_id }}'">
                         {% for key, user in data.items() %}
                         <!-- TODO key값이 name인 경우만 a태그 넣기 나중에 하이라이트로 변경-->
-                        {% if key != "Id" %}
+                        {% if key != "id" %}
                             {% if key == "Name" %}
-                            <td><a href="/user/{{ data['Id'] }}">{{ user }}</a></td>
+                            <td><a href="/user/{{ data['id'] }}">{{ user }}</a></td>
                             {% else %}
                             <td>{{ user }}</td>
                             {% endif %}
@@ -73,10 +73,10 @@
                 <div class="pagination_btn">
                     <!-- 이전 버튼 처리 -->
                     {% if page > 1%}
-                    <div class="pagination_num">&laquo;</div>
+                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}">&laquo;</a></div>
                     <div class="pagination_num"><a href="/user?page={{ page-1 }}&name={{ search_name }}"><</a></div>
                     {% else %}
-                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}">&laquo;</a></div>
+                    <div class="pagination_num">&laquo;</div>
                     <div class="pagination_num"><</div>
                     {% endif %}
                     <!-- 메인 숫자 처리 -->

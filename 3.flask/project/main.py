@@ -11,6 +11,15 @@ item_csv_file = "./csv/item.csv"
 order_csv_file = "./csv/order.csv"
 order_item_csv_file = "./csv/orderitem.csv"
 
+class DictLower:
+    def key_lower(lines):
+        data = []
+        for line in lines:
+            tmp = {key.lower(): value for key, value in line.items()}
+            data.append(tmp)
+        return data
+    
+
 # TODO mode에 따라서 search 결과 보여주기
 def readFile(filename=None, search_info=None, per_page=None, current_page=None):
     data = []
@@ -20,9 +29,9 @@ def readFile(filename=None, search_info=None, per_page=None, current_page=None):
         return print("per_page 값을 넣어주세요")
     
     with open(filename, "r") as file:
-        # TODO dictreader lower 클래스 생성 필요
         lines = csv.DictReader(file, skipinitialspace=True)
-        headers = next(lines)
+        lines = DictLower.key_lower(lines)
+        headers = lines[0].keys()
         
         # search_info filtering
         for key, value in search_info.items():
@@ -38,7 +47,7 @@ def readFile(filename=None, search_info=None, per_page=None, current_page=None):
             # name 먼저 필터링
             if "name" in search_info_filter.keys():
                 for line in lines:
-                    if search_info_filter["name"] in line["Name"]:
+                    if search_info_filter["name"] in line["name"]:
                         data.append(line)
                 search_info_filter.pop("name")
                 lines = data

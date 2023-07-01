@@ -13,14 +13,20 @@ import csv
 #     if all(line.get(key) == value for key, value in filter_dict.items()):
 #         print(line)
 
+
+class DictLower:
+    def key_lower(lines):
+        data = []
+        for line in lines:
+            tmp = {key.lower(): value for key, value in line.items()}
+            data.append(tmp)
+        return data
+    
 user_csv_file = "./csv/user.csv"
 
 with open(user_csv_file, "r") as file:
         lines = csv.DictReader(file, skipinitialspace=True)
-        
-        for line in lines:
-            lines_lower = {key.lower(): value for key, value in lines.items()}
-            
-        print(lines_lower)
-        # for line in lines_lower:
+        lines = DictLower.key_lower(lines)
+        print(lines)
+        # for line in lines:
         #     print(line)
