@@ -50,13 +50,12 @@ def readFile(filename=None, search_info=None, per_page=None, current_page=None):
             if "age_group" in search_info_filter.keys():
                 data = []
                 age_group_value = search_info_filter.get("age_group")
-                search_info_filter = {"age_group": [str(_) for _ in range(age_group_value, age_group_value+10)]}
+                age_filter = {"age_group": [str(_) for _ in range(age_group_value, age_group_value+10)]}
                 
                 for line in lines:
-                    if line["age"] in search_info_filter["age_group"]:
+                    if line["age"] in age_filter["age_group"]:
                         data.append(line)
                 search_info_filter.pop("age_group")
-                lines = data
             
             # 나머지 요소들 다 같은 경우
             if len(search_info_filter) > 0:
