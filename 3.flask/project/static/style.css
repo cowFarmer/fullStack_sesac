@@ -163,11 +163,11 @@ button {
     align-items: center;
 }
 
-.search_filter .search_range {
+.search_filter .search_age {
     display: flex;
     align-items: center;
 }
 
-.search_filter .search_range input {
+.search_filter .search_age input {
     width: 150px;
 }

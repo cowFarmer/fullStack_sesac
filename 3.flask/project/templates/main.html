@@ -27,17 +27,17 @@
             <form action="/user" method="GET">
                 <div class="search_filter">
                     <div class="search_input">
-                        <input type="text" name="name" placeholder="검색">
+                        <input type="text" name="name" placeholder="검색" value="{{ search_name }}">
                     </div>
                     <div class="search_gender">
                         <select name="gender">
                             <option value="">성별</option>
-                            <option value="man">Man</option>
-                            <option value="woman">Woman</option>
+                            <option value="male" {% if search_gender == "male" %}selected{% endif %}>male</option>
+                            <option value="female" {% if search_gender == "female" %}selected{% endif %}>female</option>
                         </select>
                     </div>
-                    <div class="search_range">
-                        <input type="range" name="age_group" min="-10" max="50" step="10" value="-10">
+                    <div class="search_age">
+                        <input type="range" name="age_group" min="-10" max="50" step="10" value="{{ search_age_group }}">
                     </div>
                     <button type="submit">submit</button>
                 </div>
@@ -54,7 +54,7 @@
                     {% for data in datas %}
                     <!-- 따옴표 반복 에러 해결용 변수 할당 -->
                     {% set data_id = data['id'] %}
-                    <tr onclick="location.href='/user/{{ data_id }}'">
+                    <tr onclick="window.location.href='/user/{{ data_id }}'">
                         {% for key, user in data.items() %}
                         <!-- TODO key값이 name인 경우만 a태그 넣기 나중에 하이라이트로 변경-->
                         {% if key != "id" %}
@@ -73,8 +73,8 @@
                 <div class="pagination_btn">
                     <!-- 이전 버튼 처리 -->
                     {% if page > 1%}
-                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}">&laquo;</a></div>
-                    <div class="pagination_num"><a href="/user?page={{ page-1 }}&name={{ search_name }}"><</a></div>
+                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">&laquo;</a></div>
+                    <div class="pagination_num"><a href="/user?page={{ page-1 }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}"><</a></div>
                     {% else %}
                     <div class="pagination_num">&laquo;</div>
                     <div class="pagination_num"><</div>
@@ -84,25 +84,26 @@
                         {% if i == page %}
                         <div class="pagination_num" style="font-weight: bold;">{{ i }}</div>
                         {% else %}
-                        <div class="pagination_num"><a href="/user?page={{ i }}&name={{ search_name }}">{{ i }}</a></div>
+                        <div class="pagination_num"><a href="/user?page={{ i }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">{{ i }}</a></div>
                         {% endif %}
                     {% endfor %}
                     <!-- 다음 페이지 -->
                     {% if page < total_page %}
-                    <div class="pagination_num"><a href="/user?page={{ page+1 }}&name={{ search_name }}">></a></div>
-                    <div class="pagination_num"><a href="/user?page={{ total_page }}&name={{ search_name }}">&raquo;</a></div>
+                    <div class="pagination_num"><a href="/user?page={{ page+1 }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">></a></div>
+                    <div class="pagination_num"><a href="/user?page={{ total_page }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">&raquo;</a></div>
                     {% else %}
                     <div class="pagination_num">></div>
                     <div class="pagination_num">&raquo;</div>
                     {% endif %}
-                    
                 </div>
 
                 <!-- pagination의 input -->
-                <!-- TODO 검색 후 max, 페이지 이동 버그 수정 필요 -->
                 <div class="pagination_input">
                     <form action="/user" method="GET">
-                        <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="page">
+                        <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="page" value="{{ page }}">
+                        <input type="hidden" name="name" value="{{ search_name }}">
+                        <input type="hidden" name="gender" value="{{ search_gender }}">
+                        <input type="hidden" name="age_group" value="{{ search_age_group }}">
                         <button type="submit">submit</button>
                     </form>
                 </div>

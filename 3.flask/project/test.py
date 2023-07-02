@@ -1,32 +1,21 @@
-import csv
-# tmp_dict = [
-#     {'Id': '556ab94a-e782-49f0-a23c-55251ff06b88', 'Name': '임예지', 'Gender': 'Male', 'Age': '31', 'Birthdate': '1992-05-24', 'Address': '대구 강서구 81길 64'},
-#     {'Id': '934bfac0-ed07-48ce-89ff-bfec277e77eb', 'Name': '강지안', 'Gender': 'Female', 'Age': '40', 'Birthdate': '1983-04-08', 'Address': '대구 강서구 21길 26'},
-#     {'Id': '3b4514bb-48b4-41ca-b6ad-0cf514910c3d', 'Name': '민현우', 'Gender': 'Female', 'Age': '30', 'Birthdate': '1992-09-17', 'Address': '광주 중구 21로 96'},
-#     {'Id': '3b4514bb-48b4-41ca-b6ad-0cf514910c3d', 'Name': '윤민우', 'Gender': 'male', 'Age': '30', 'Birthdate': '1992-09-17', 'Address': '광주 중구 21로 96'},
-# ]
+# test_dict = {"age_group": 10}
+# info_dict = {'id': '06dcbb0c-68db-420d-9218-9519ef908e44', 'name': '박성민', 'gender': 'male', 'age': '16', 'birthdate': '2006-06-15', 'address': '서울 강서구 43길 77'}
 
-# filter_dict = {"Gender": "Female"}
+# if "age_group" in test_dict:
+#     tmp_num = test_dict.get("age_group")
+#     test_dict = {"age_group": [_ for _ in range(tmp_num, tmp_num+10)]}
 
-# for line in tmp_dict:
-#     print(line["Name"])
-#     if all(line.get(key) == value for key, value in filter_dict.items()):
-#         print(line)
+# for key, value in test_dict.items():
+#     print(info_dict.get("age"))
+#     print(test_dict.get(key))
+#     if info_dict.get("age") in test_dict.get(key):
+#         print(info_dict)
 
+# if all(info_dict.get(key) in value for key, value in test_dict.items()):
+#     print(info_dict)
 
-class DictLower:
-    def key_lower(lines):
-        data = []
-        for line in lines:
-            tmp = {key.lower(): value for key, value in line.items()}
-            data.append(tmp)
-        return data
-    
-user_csv_file = "./csv/user.csv"
+age = 16
+age_group = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
 
-with open(user_csv_file, "r") as file:
-        lines = csv.DictReader(file, skipinitialspace=True)
-        lines = DictLower.key_lower(lines)
-        print(lines)
-        # for line in lines:
-        #     print(line)
+if age in age_group:
+    print(age)
