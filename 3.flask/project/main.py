@@ -17,7 +17,7 @@ user_csv_file = "./make_csv/user.csv"
 store_csv_file = "./make_csv/store.csv"
 item_csv_file = "./make_csv/item.csv"
 order_csv_file = "./make_csv/order.csv"
-order_item_csv_file = "./make_csv/orderitem.csv"
+order_item_csv_file = "./make_csv/orderlist.csv"
 ############################
 
 
@@ -56,17 +56,14 @@ def user_info(id):
     # 유저 아이디와 오더 유저 아이디 비교
     order_headers, order_lines = ReadCsvDict.file_name(filename=order_csv_file)
     ordered_data = CheckData().check_same_feature(datas, "id", order_lines, "userid")
-    print(ordered_data)
     
     # 오더 유저 아이디와 오더 아이템 비교
-    # 오더의 orderid와 오더 아이템의 id가 맞지 않는 경우가 있음
     _, order_item_lines = ReadCsvDict.file_name(filename=order_item_csv_file)
     ordered_item = CheckData().check_same_feature(ordered_data, "orderid", order_item_lines, "orderid")
-    print(ordered_item)
     
+    # 오더 아이템과 아이템 비교
     _, item_lines = ReadCsvDict.file_name(filename=item_csv_file)
     items = CheckData().check_same_feature(ordered_item, "itemid", item_lines, "id")
-    print(items)
     
     total_price = CheckData().total_price(items)
     
