@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Manager</title>
+    <link rel="stylesheet" type="text/css" href="./static/style.css">
+    <script src="https://kit.fontawesome.com/781c6d910c.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="header_container">
+                <ul>
+                    <li class="item logo"><a href="/">Inventory Manager</a></li>
+                    <li class="item "><a href="/inventory_manager">창고 관리하기</a></li>
+                    <li class="item"><a href="/store_manager">매장 관리하기</a></li>
+                    <li class="item"><a href="/shopping">쇼핑하기</a></li>
+                    <li class="item"><a href="/user">내 정보</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="main_container_width">
+        <div class="main_container">
+            <div class="left_container">
+                <aside>
+                    <div class="left_menu">
+                        <a href="#"><span>상품 등록</span></a>
+                        <a href="#"><span>입고</span></a>
+                        <a href="#"><span>출고</span></a>
+                        <a href="#"><span>재고</span></a>
+                        <a href="#"><span>정산</span></a>
+                        <a href="#"><span>조회</span></a>
+                        <a href="#"><span>요청</span></a>
+                        <a href="#"><span>프로모션 추가</span></a>
+                        <a href="#"><span>삭제</span></a>
+                        <hr>
+                        <button class="guide" id="guide_toggle">
+                            <a href="#">
+                                <span>가이드</span>
+                                <span><i class="fa-thin fa-chevron-down"></i></span>
+                            </a>
+                        </button>
+                        <div class="guide_menu" id="guide_menu">
+                            <a href="#"><span>상품 등록</span></a>
+                            <a href="#"><span>입고</span></a>
+                            <a href="#"><span>출고</span></a>
+                            <a href="#"><span>재고</span></a>
+                            <a href="#"><span>정산</span></a>
+                            <a href="#"><span>조회</span></a>
+                            <a href="#"><span>요청</span></a>
+                            <a href="#"><span>프로모션 추가</span></a>
+                            <a href="#"></a><span>삭제</span></a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <div class="main_article_container">
+                <section>
+                    <div class="main_article">
+                        <article>
+                            <h1>상품 등록</h1>
+                        </article>
+                        <hr>
+                        <article>
+                            <div class="detail_area">
+                                <div class="search_area">
+                                    <span class="search_header">상품 등록</span>
+                                    <div class="grid_search_area">
+                                        <div class="grid_searh_area_items">
+                                            <div class="grid_searh_area_item"><span>제품명</span><input></div>
+                                            <div class="grid_searh_area_item"><span>수입사</span><input></div>
+                                            <div class="grid_searh_area_item"><span>매입가</span><input></div>
+                                            <div class="grid_searh_area_item"><span>판매가</span><input></div>
+                                            <div class="grid_searh_area_item"><span>판매 수량</span><input></div>
+                                        </div>
+                                        <div class="vertical_line"></div>
+                                        <div class="grid_searh_area_items">
+                                            <div class="grid_searh_area_item"><span>할인가</span><input></div>
+                                            <div class="grid_searh_area_item"><span>할인율</span><input></div>
+                                            <div class="grid_searh_area_item"><span>할인 수량</span><input></div>
+                                            <div class="grid_searh_area_item"><span>날짜</span><input></div>
+                                            <div class="grid_searh_area_item"><span>생성 결과</span><input></div>
+                                        </div>
+                                    </div>
+                                    <div class="button">
+                                        <a href="#"><span id="create">생성하기</span></a>
+                                        <a href="#"><span id="submit">적용하기</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <hr>
+                        <article>
+                            <div class="result_area">
+                                <div class="result_header">
+                                    <h3>조회</h3>
+                                    <p>다운로드(액셀)</p>>
+                                </div>
+                                <div class="bottom_line"></div>
+            
+                                <ul>
+                                    <li>No</li>
+                                    <li>ID</li>
+                                    <li>제품명</li>
+                                    <li>위치</li>
+                                    <li>수입사</li>
+                                    <li>매입가</li>
+                                    <li>날짜</li>
+                                    <li>판매가</li>
+                                    <li>할인가</li>
+                                    <li>수량</li>
+                                </ul>
+                                <div class="bottom_line"></div>
+                            </div>
+                        </article>
+                    </div>
+            
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
