@@ -1,4 +1,4 @@
-from functions.dict_controller import ReadCsvDict
+from functions.controller import ReadCsvDict
 from functions.page.page_function import pageList
 import math
 

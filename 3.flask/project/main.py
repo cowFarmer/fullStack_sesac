@@ -1,16 +1,25 @@
 from flask import Flask, render_template, request
-import csv
-from functions.dict_controller import ReadCsvDict
+from functions.controller import ReadCsvDict, CheckData
 from functions.user.user_function import filter_user_file
 
 app = Flask(__name__, static_folder="static")
 
-user_csv_file = "./csv/user.csv"
+############################
+# user_csv_file = "./csv/user.csv"
 # user_csv_file = "./csv/big_user.csv"
-store_csv_file = "./csv/store.csv"
-item_csv_file = "./csv/item.csv"
-order_csv_file = "./csv/order.csv"
-order_item_csv_file = "./csv/orderitem.csv"
+# store_csv_file = "./csv/store.csv"
+# item_csv_file = "./csv/item.csv"
+# order_csv_file = "./csv/order.csv"
+# order_item_csv_file = "./csv/orderitem.csv"
+############################
+# make csv 적용
+user_csv_file = "./make_csv/user.csv"
+store_csv_file = "./make_csv/store.csv"
+item_csv_file = "./make_csv/item.csv"
+order_csv_file = "./make_csv/order.csv"
+order_item_csv_file = "./make_csv/orderitem.csv"
+############################
+
 
 @app.route('/')
 def home():
@@ -40,57 +49,82 @@ def user():
 
 @app.route('/user/<id>')
 def user_info(id):
-    data = []
+    # 유저 아이디 값 가져오기
     headers, lines = ReadCsvDict.file_name(filename=user_csv_file)
-    for line in lines:
-        if line["id"] == id:
-            data.append(line)
-            break
+    datas = CheckData().check_id(id, lines, "id")
     
-    return render_template("user_info.html", headers=headers, datas=data)
+    # 유저 아이디와 오더 유저 아이디 비교
+    order_headers, order_lines = ReadCsvDict.file_name(filename=order_csv_file)
+    ordered_data = CheckData().check_same_feature(datas, "id", order_lines, "userid")
+    print(ordered_data)
+    
+    # 오더 유저 아이디와 오더 아이템 비교
+    # 오더의 orderid와 오더 아이템의 id가 맞지 않는 경우가 있음
+    _, order_item_lines = ReadCsvDict.file_name(filename=order_item_csv_file)
+    ordered_item = CheckData().check_same_feature(ordered_data, "orderid", order_item_lines, "orderid")
+    print(ordered_item)
+    
+    _, item_lines = ReadCsvDict.file_name(filename=item_csv_file)
+    items = CheckData().check_same_feature(ordered_item, "itemid", item_lines, "id")
+    print(items)
+    
+    total_price = CheckData().total_price(items)
+    
+    return render_template("user_info.html", headers=headers, datas=datas,
+                           order_headers=order_headers, ordered_data=ordered_data,
+                           total_price=total_price)
 
 @app.route('/store')
 def store_list():
-    data = []
-    with open(store_csv_file, "r") as file:
-        lines = csv.DictReader(file, skipinitialspace=True)
-        headers = next(lines)
-        for line in lines:
-            data.append(line)
+    headers, lines = ReadCsvDict.file_name(filename=store_csv_file)
+    datas = CheckData().check(lines)
     
-    return render_template("store_list.html", headers=headers, datas=data)
+    return render_template("store_list.html", headers=headers, datas=datas)
 
 @app.route('/store/<id>')
 def store_info(id):
-    data = []
-    with open(order_csv_file, "r") as file:
-        lines = csv.DictReader(file, skipinitialspace=True)
-        headers = next(lines)
-        for line in lines:
-            if line["StoreId"] == id:
-                data.append(line)
-                
-    return render_template("store_order_info.html", headers=headers, datas=data)
+    headers, lines = ReadCsvDict.file_name(filename=store_csv_file)
+    datas = CheckData().check_id(id, lines, "id")
+    
+    ordered_data = []
+    order_headers, order_lines = ReadCsvDict.file_name(filename=order_csv_file)
+    ordered_data = CheckData().check_same_feature(datas, "id", order_lines, "storeid")
+    
+    return render_template("store_order_info.html", headers=headers, datas=datas, 
+                           order_headers=order_headers, ordered_data=ordered_data)
         
 @app.route('/item')
 def item_list():
-    with open("./csv/item.csv", "r") as file:
-        lines = csv.reader(file)
-        return render_template("item.html", users_info = lines)
+    headers, lines = ReadCsvDict.file_name(filename=item_csv_file)
+    datas = CheckData().check(lines)
+            
+    return render_template("item.html", headers=headers, datas=datas)
 
+@app.route('/item/<id>')
+def item_info(id):
+    headers, lines = ReadCsvDict.file_name(filename=item_csv_file)
+    datas = CheckData().check_id(id, lines, "id")
+    order_headers, order_lines = ReadCsvDict.file_name(filename=order_item_csv_file)
+    
+    total_price, ordered_data = CheckData().check_total_price(datas, order_lines)
+    return render_template("item_info.html", headers=headers, datas=datas,
+                           order_headers=order_headers, ordered_data=ordered_data,
+                           total_price=total_price)
 
 @app.route('/order')
 def order_list():
-    with open("./csv/order.csv", "r") as file:
-        lines = csv.reader(file)
-        return render_template("order.html", users_info = lines)
+    headers, lines = ReadCsvDict.file_name(filename=order_csv_file)
+    datas = CheckData().check(lines)
+    
+    return render_template("order.html", headers=headers, datas=datas)
 
 
 @app.route('/order_item')
 def order_item_list():
-    with open("./csv/orderitem.csv", "r") as file:
-        lines = csv.reader(file)
-        return render_template("order_item.html", users_info = lines)
+    headers, lines = ReadCsvDict.file_name(filename=order_item_csv_file)
+    datas = CheckData().check(lines)
+    
+    return render_template("order_item.html", headers=headers, datas=datas)
 
     
 if __name__ == "__main__":

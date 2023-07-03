@@ -1,11 +1,23 @@
 table, th, td {
-    border: 1px solid black;
     border-collapse: collapse;
     text-align: center;
+    border-right: 1px solid rgba(0, 27, 55, 0.1);
+}
+
+table, th, td:last-child {
+    border-right: none;
 }
 
 table {
     width: 100%;
+}
+
+tr {
+    border-bottom: 1px solid rgba(0, 27, 55, 0.1);
+}
+
+tr:last-child {
+    border-bottom: 1px solid rgba(0, 27, 55, 0.3);
 }
 
 th {
@@ -69,6 +81,8 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0 20px;
+    padding-bottom: 50px;
 }
 
 .vertical_container {
@@ -87,7 +101,8 @@ table {
     justify-content: center;
     align-items: center;
     padding: 10px 30px;
-    width: 100%
+    width: 100%;
+    flex-direction: column;
 }
 
 .container a{
@@ -97,6 +112,23 @@ table {
 
 .container .header {
     cursor: default;
+}
+
+.ordered_container {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    flex-direction: column;
+}
+
+.ordered_container span {
+    display: block;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+.ordered_container .container {
+    padding: 0;
 }
 
 /* pagination start */
@@ -143,6 +175,10 @@ tr:hover {
 button {
     width: 50px;
     height: 24px;
+}
+
+.go_back {
+    margin-top: 30px;
 }
 
 .go_back button {

@@ -39,6 +39,26 @@
                     {% endfor %}
                 </table>
             </div>
+            <div class="ordered_container">
+                <div><span>주문 조회</span></div>
+                <div class="container">
+                    <table>
+                        <tr class="header">
+                            {% for header in order_headers %}
+                            <th>{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                        {% for data in ordered_data %}
+                        <tr>
+                            {% for key, value in data.items() %}
+                            <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="result"><span>총 금액: {{ total_price }}</span></div>
+                </div>
+            </div>
             <div class="go_back">
                 <button onclick="window.history.back()">뒤로가기</button>
             </div>
