@@ -1,0 +1,5 @@
+user_csv_file = "../static/csv/user.csv"
+store_csv_file = "../static/csv/store.csv"
+item_csv_file = "../static/csv/item.csv"
+order_csv_file = "../static/csv/order.csv"
+order_item_csv_file = "../static/csv/orderlist.csv"
