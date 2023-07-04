@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Store_Info</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" </head>
+
+<body>
+    <header>
+        <div class="header_container">
+            <ul>
+                <li><a href="/">home</a></li>
+                <li><a href="/user">user</a></li>
+                <li><a href="/store">store</a></li>
+                <li><a href="/item">item</a></li>
+                <li><a href="/order">order</a></li>
+                <li><a href="/order_item">order item</a></li>
+            </ul>
+        </div>
+    </header>
+    <div class="main_container">
+        <div class="vertical_container">
+            <div class="container">
+                <table>
+                    <tr class="header">
+                        {% for header in headers %}
+                        <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                    {% for data in datas %}
+                    <tr>
+                        {% for key, value in data.items() %}
+                        <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="ordered_container">
+                <div><span>주문 조회</span></div>
+                <div class="container">
+                    <table>
+                        <tr class="header">
+                            {% for header in order_headers %}
+                            <th>{{ header }}</th>
+                            {% endfor %}
+                        </tr>
+                        {% for data in ordered_data %}
+                        <tr>
+                            {% for key, value in data.items() %}
+                            <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    <div class="result"><span>총 금액: {{ total_price }}</span></div>
+                </div>
+            </div>
+            <div class="go_back">
+                <button onclick="window.history.back()">뒤로가기</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

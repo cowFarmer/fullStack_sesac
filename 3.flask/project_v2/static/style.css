@@ -1,0 +1,220 @@
+table, th, td {
+    border-collapse: collapse;
+    text-align: center;
+    border-right: 1px solid rgba(0, 27, 55, 0.1);
+}
+
+table, th, td:last-child {
+    border-right: none;
+}
+
+table {
+    width: 100%;
+}
+
+tr {
+    border-bottom: 1px solid rgba(0, 27, 55, 0.1);
+}
+
+tr:last-child {
+    border-bottom: 1px solid rgba(0, 27, 55, 0.3);
+}
+
+th {
+    background-color: skyblue;
+    height: 30px;
+    padding: 0 30px;
+}
+
+td {
+    padding: 5px;
+    color: #232222;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+ul, li, body, input, button {
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #232222;
+    opacity: 0.8;
+}
+
+input {
+    width: 50px;
+    height: 20px;
+    text-align: center;
+}
+
+.header_container {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_container ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_container li {
+    display: flex;
+    height: 35px;
+    justify-content: center;
+    align-items: center;
+}
+
+.header_container ul li a {
+    padding: 10px 15px;
+}
+
+.main_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    padding-bottom: 50px;
+}
+
+.vertical_container {
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+table {
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 30px;
+    width: 100%;
+    flex-direction: column;
+}
+
+.container a{
+    color: #3e85d1;
+}
+
+.container .header {
+    cursor: default;
+}
+
+.ordered_container {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    flex-direction: column;
+}
+
+.ordered_container span {
+    display: block;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+.ordered_container .container {
+    padding: 0;
+}
+
+/* pagination start */
+
+.pagination_btn {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.pagination_num {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+}
+
+.pagination_num a {
+    display: block;
+    padding: 10px;
+}
+
+/* hover */
+.pagination_num:hover, .header_container li:hover {
+    background-color: rgb(195, 229, 243);
+    border-radius: 15px;
+}
+
+.onclick_on:hover {
+    cursor: pointer;
+    background-color: rgb(195, 229, 243);
+}
+
+.pagination_input {
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.pagination_input input {
+    width: 50px;
+}
+
+button {
+    width: 50px;
+    height: 24px;
+}
+
+.go_back {
+    margin-top: 30px;
+}
+
+.go_back button {
+    width: 100px;
+}
+
+.search_filter {
+    display: flex;
+    margin: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.search_filter * {
+    margin: 0 5px;
+}
+
+.search_filter .search_gender {
+    display: flex;
+    align-items: center;
+}
+
+.search_filter .search_age {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.search_filter .search_age input {
+    width: 150px;
+}
+
+.search_filter .search_age label {
+    font-size: 5px;
+}
