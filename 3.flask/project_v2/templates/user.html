@@ -99,7 +99,7 @@
                 <!-- pagination의 input -->
                 <div class="pagination_input">
                     <form action="/user" method="GET">
-                        <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="page" value="{{ page }}">
+                        <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="page" value="{{ page }}" onkeydown="preventEnter(event)">
                         <input type="hidden" name="name" value="{{ search_name }}">
                         <input type="hidden" name="gender" value="{{ search_gender }}">
                         <input type="hidden" name="age_group" value="{{ search_age_group }}">
@@ -116,6 +116,12 @@
         rangeInput.addEventListener('input', function() {
             rangeValue.textContent = rangeInput.value + "대";
         });
+
+        function preventEnter(e) {
+            if (e.keyCode === 13) {
+                event.preventDefault();
+            }
+        }
     </script>
 </body>
 

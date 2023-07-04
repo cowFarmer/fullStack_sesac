@@ -23,6 +23,9 @@
     </header>
     <div class="main_container">
         <div class="vertical_container">
+            <div class="div_span">
+                <span>사용자 정보</span>
+            </div>
             <div class="container">
                 <table>
                     <tr class="header">
@@ -40,7 +43,7 @@
                 </table>
             </div>
             <div class="ordered_container">
-                <div><span>주문 조회</span></div>
+                <div class="div_span"><span>주문 조회</span></div>
                 <div class="container">
                     <table>
                         <tr class="header">
@@ -60,7 +63,7 @@
                         </tr>
                         {% endfor %}
                     </table>
-                    <div class="result"><span>총 금액: {{ total_price }}</span></div>
+                    <div class="price_result"><span>총 금액: {{ total_price }}</span></div>
                 </div>
             </div>
             <div class="go_back">

@@ -27,15 +27,20 @@
                 <table>
                     <tr class="header">
                         {% for header in headers %}
+                        {% if header != "id" %}
                         <th>{{ header }}</th>
+                        {% endif %}
                         {% endfor %}
                     </tr>
                     {% for data in datas %}
-                    <!-- 따옴표 반복 에러 해결용 변수 할당 -->
-                    {% set data_id = data['id'] %}
-                    <tr onclick="location.href='/item/{{ data_id }}'">
+                    <tr> 
                         {% for key, value in data.items() %}
-                        <td>{{ value }}</td>
+                        {% if key == "name" %}
+                        {% set data_id = data['id'] %}
+                            <td class="onclick_on" onclick="location.href='/item/{{ data_id }}'"><a>{{ value }}</a></td>
+                        {% elif key != "id" %}
+                            <td>{{ value }}</td>
+                        {% endif %}
                         {% endfor %}
                     </tr>
                     {% endfor %}

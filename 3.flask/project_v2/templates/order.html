@@ -33,7 +33,7 @@
                     {% for data in datas %}
                     <!-- 따옴표 반복 에러 해결용 변수 할당 -->
                     {% set data_id = data['orderid'] %}
-                    <tr onclick="location.href='/order/{{ data_id }}'">
+                    <tr>
                         {% for key, value in data.items() %}
                         <td>{{ value }}</td>
                         {% endfor %}

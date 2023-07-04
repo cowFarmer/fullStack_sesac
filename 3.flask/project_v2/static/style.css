@@ -52,6 +52,12 @@ input {
     text-align: center;
 }
 
+div span {
+    display: block;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
 .header_container {
     height: 50px;
     display: flex;
@@ -100,7 +106,6 @@ table {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 30px;
     width: 100%;
     flex-direction: column;
 }
@@ -118,12 +123,7 @@ table {
     width: 100%;
     margin-top: 30px;
     flex-direction: column;
-}
-
-.ordered_container span {
-    display: block;
-    padding: 10px 0;
-    font-size: 20px;
+    justify-content: center;
 }
 
 .ordered_container .container {
@@ -217,4 +217,13 @@ button {
 
 .search_filter .search_age label {
     font-size: 5px;
+}
+
+.div_span {
+    display: block;
+    width: 100%;
+}
+
+.price_result {
+    padding-top: 30px;
 }
