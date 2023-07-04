@@ -45,13 +45,17 @@
                     <table>
                         <tr class="header">
                             {% for header in order_headers %}
-                            <th>{{ header }}</th>
+                            {% if header != "userid" %}
+                                <th>{{ header }}</th>
+                            {% endif %}
                             {% endfor %}
                         </tr>
                         {% for data in ordered_data %}
                         <tr>
                             {% for key, value in data.items() %}
-                            <td>{{ value }}</td>
+                                {% if key != 'userid' %}
+                                    <td>{{ value }}</td>
+                                {% endif %}
                             {% endfor %}
                         </tr>
                         {% endfor %}

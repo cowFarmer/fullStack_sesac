@@ -115,6 +115,9 @@ def order_list():
     
     return render_template("order.html", headers=headers, datas=datas)
 
+@app.route('/order/<id>')
+def order_id(id):
+    return render_template("tmp.html")
 
 @app.route('/order_item')
 def order_item_list():
@@ -124,6 +127,10 @@ def order_item_list():
     return render_template("order_item.html", headers=headers, datas=datas)
 
     
+@app.route('/order_item/<id>')
+def order_item_id(id):
+    return render_template("tmp.html")
+
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
-    # app.run(debug=True, port=8080, host='0.0.0.0')
+    # app.run(debug=True, port=8080)
+    app.run(debug=True, port=8080, host='0.0.0.0')
