@@ -1,58 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>USER_INFO</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-
-<body>
-    <header>
-        <div class="header_container">
-            <ul>
-                <li><a href="/">home</a></li>
-                <li><a href="/user">user</a></li>
-                <li><a href="/store">store</a></li>
-                <li><a href="/item">item</a></li>
-                <li><a href="/order">order</a></li>
-                <li><a href="/order_item">order item</a></li>
-            </ul>
-        </div>
-    </header>
-    <div class="main_container">
-        <div class="vertical_container">
-            <div class="container">
-                <table>
-                    <tr class="header">
-                        {% for header in headers %}
-                        {% if header != "id" %}
-                            <th>{{ header }}</th>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
-                    {% for data in datas %}
-                    <!-- 따옴표 반복 에러 해결용 변수 할당 -->
-                    <tr>
-                        {% for key, value in data.items() %}
-                        {% if key == "name" %}
-                        {% set store_id = data['id'] %}
-                        <td class="onclick_on" onclick="location.href='/store/{{ store_id }}'"><a>{{ value }}</a></td>
-                        {% elif key != "id" %}
-                            <td>{{ value }}</td>
-                        {% endif %}
-                        {% endfor %}
-                    </tr>
+{% extends "./common/base.html" %}
+{% block title %}
+store list
+{% endblock %}
+{% block content %}
+<div class="main_container">
+    <div class="vertical_container">
+        <div class="container">
+            <table>
+                <tr class="header">
+                    {% for header in headers %}
+                    {% if header != "id" %}
+                    <th>{{ header }}</th>
+                    {% endif %}
                     {% endfor %}
-                </table>
-            </div>
-            <div class="go_back">
-                <!-- <a href="javascript:history.back()">뒤로가기</a> -->
-                <button onclick="window.history.back()">뒤로가기</button>
-            </div>
+                </tr>
+                {% for data in datas %}
+                <tr>
+                    {% for key, value in data.items() %}
+                    {% if key == "name" %}
+                    {% set store_id = data['id'] %}
+                    <td class="onclick_on" onclick="location.href='/store/{{ store_id }}'"><a>{{ value }}</a></td>
+                    {% elif key != "id" %}
+                    <td>{{ value }}</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="go_back">
+            <button onclick="window.history.back()">뒤로가기</button>
         </div>
     </div>
-</body>
-
-</html>
+</div>
+{% endblock %}
