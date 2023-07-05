@@ -1,8 +1,8 @@
-from functions.controller import ReadCsvDict
-from functions.page.page_function import pageList
+from utils.controller import ReadCsvDict
+from utils.page.page_function import pageList
 import math
 
-def filter_user_file(filename=None, search_info=None, per_page=100, current_page=None):
+def filter_user_file(filename=None, search_info=None, per_page=10000, current_page=None):
     data = []
     search_info_filter = {}
     headers, lines = ReadCsvDict.file_name(filename=filename)

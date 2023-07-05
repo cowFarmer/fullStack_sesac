@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, Blueprint
+from flask import request, render_template, Blueprint
 from utils.user.user_function import filter_user_file
 from utils.controller import ReadCsvDict, CheckData
 from utils.static_url import user_csv_file, order_csv_file, order_item_csv_file, item_csv_file
