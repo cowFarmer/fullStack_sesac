@@ -18,9 +18,10 @@ class ReadCsvDict:
             headers = lines[0].keys()
         return headers, lines
     
-#  말 그대로 data check해서 조건에 맞으면 list(dict) return
 class CheckData:
+#  말 그대로 data check해서 조건에 맞으면 list(dict) return
     def __init__(self):
+        # TODO tmp 수정
         self.tmp = []
     
     def check(self, datas):
@@ -57,3 +58,38 @@ class CheckData:
         for item in items:
             total_price += int(item["unitprice"])
         return total_price
+    
+    def check_date(self, datas, start_date, end_date):
+        result_flag = True
+        # TODO 코드 간소화 필요
+        # 1. 둘다 비어 있는 경우 다 출력
+        if start_date == "" and end_date == "":
+            for data in datas:
+                self.tmp.append(data)
+        
+        # 3. start_date가 비어 있는 경우
+        if start_date == "":
+            for data in datas:
+                data_date = data["orderat"].split(" ")[0]
+                if data_date <= end_date:
+                    self.tmp.append(data)
+        
+        # 4. end_date가 비어 있는 경우
+        if end_date == "":
+            for data in datas:
+                data_date = data["orderat"].split(" ")[0]
+                if data_date >= start_date:
+                    self.tmp.append(data)
+        
+        # 2. 일반적인 상황과 동일
+        if start_date <= end_date:
+            for data in datas:
+                data_date = data["orderat"].split(" ")[0]
+                if start_date <= data_date <= end_date:
+                    self.tmp.append(data)
+        
+        # 5. 에러로 잘못 넘겨준 경우 -> start_date > end_date
+        if start_date > end_date:
+            result_flag = False
+
+        return self.tmp, result_flag

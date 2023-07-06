@@ -17,7 +17,7 @@ User Info
                 </tr>
                 {% for data in datas %}
                 <tr>
-                    {% for key, user in data.items() %}
+                    {% for _, user in data.items() %}
                     <td>{{ user }}</td>
                     {% endfor %}
                 </tr>

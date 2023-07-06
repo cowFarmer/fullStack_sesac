@@ -36,7 +36,7 @@ User
                     {% endfor %}
                 </tr>
                 {% for data in datas %}
-                <tr>
+                <tr class="data">
                     {% for key, user in data.items() %}
                         {% if key != "id" %}
                             {% if key == "name" %}
@@ -55,6 +55,7 @@ User
             <div class="pagination_btn">
                 <!-- 이전 버튼 처리 -->
                 {% if page > 1%}
+                <!-- TODO /user를 뺄 수 있을까? -->
                     <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">&laquo;</a></div>
                     <div class="pagination_num"><a href="/user?page={{ page-1 }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}"><</a></div>
                 {% else %}

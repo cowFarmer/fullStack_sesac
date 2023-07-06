@@ -6,8 +6,19 @@ Order List
 <div class="main_container">
     <div class="vertical_container">
         <div class="container">
+            <form action="/order" method="GET">
+                <div class="date_input">
+                    <input type="date" name="start_date", value="{{ start_date }}">
+                    <span>~</span>
+                    <input type="date" name="end_date", value="{{ end_date }}">
+                    <button type="submit">submit</button>
+                </div>
+            </form>
             <table>
                 <tr class="header">
+                    {% if result_flag == False %}
+                    <h1>제대로 된 date를 입력해 주세요</h1>
+                    {% endif %}
                     {% for header in headers %}
                     <th>{{ header }}</th>
                     {% endfor %}

@@ -1,6 +1,8 @@
+import math
+
 from utils.controller import ReadCsvDict
 from utils.page.page_function import pageList
-import math
+
 
 def filter_user_file(filename=None, search_info=None, per_page=10000, current_page=None):
     data = []
