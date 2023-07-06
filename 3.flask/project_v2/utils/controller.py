@@ -1,5 +1,6 @@
 import csv
 
+
 class DictLower:
     def key_lower(lines):
         data = []
@@ -21,37 +22,36 @@ class ReadCsvDict:
 class CheckData:
 #  말 그대로 data check해서 조건에 맞으면 list(dict) return
     def __init__(self):
-        # TODO tmp 수정
-        self.tmp = []
+        self.processed_data = []
     
     def check(self, datas):
         for data in datas:
-            self.tmp.append(data)
-        return self.tmp
+            self.processed_data.append(data)
+        return self.processed_data
     
     def check_id(self, id, new_datas, new_feature):
         for check_data in new_datas:
             if id == check_data[new_feature]:
-                self.tmp.append(check_data)
+                self.processed_data.append(check_data)
                 continue
-        return self.tmp
+        return self.processed_data
     
-    def check_same_feature(self, og_datas, og_feature, new_datas, new_feature):
-        # og_datas, new_datas를 list(dict) 형태로 받아야 함
+    def check_same_feature(self, org_datas, org_feature, new_datas, new_feature):
+        # org_datas, new_datas를 list(dict) 형태로 받아야 함
         for new_data in new_datas:
-            for og_data in og_datas:
-                if new_data[new_feature] == og_data[og_feature]:
-                    self.tmp.append(new_data)
-        return self.tmp
+            for org_data in org_datas:
+                if new_data[new_feature] == org_data[org_feature]:
+                    self.processed_data.append(new_data)
+        return self.processed_data
     
-    def check_total_price(self, og_datas, new_datas):
+    def check_total_price(self, org_datas, new_datas):
         total_price = 0
         for new_data in new_datas:
-            for og_data in og_datas:
-                if og_data["id"] == new_data["itemid"]:
-                    total_price += int(og_data["unitprice"])
-                    self.tmp.append(new_data)
-        return total_price, self.tmp
+            for org_data in org_datas:
+                if org_data["id"] == new_data["itemid"]:
+                    total_price += int(org_data["unitprice"])
+                    self.processed_data.append(new_data)
+        return total_price, self.processed_data
     
     def total_price(self, items):
         total_price = 0
@@ -60,36 +60,17 @@ class CheckData:
         return total_price
     
     def check_date(self, datas, start_date, end_date):
-        result_flag = True
-        # TODO 코드 간소화 필요
-        # 1. 둘다 비어 있는 경우 다 출력
-        if start_date == "" and end_date == "":
-            for data in datas:
-                self.tmp.append(data)
-        
-        # 3. start_date가 비어 있는 경우
+        success_flag = True
         if start_date == "":
-            for data in datas:
-                data_date = data["orderat"].split(" ")[0]
-                if data_date <= end_date:
-                    self.tmp.append(data)
-        
-        # 4. end_date가 비어 있는 경우
+            start_date = "0000-00-00"
         if end_date == "":
-            for data in datas:
-                data_date = data["orderat"].split(" ")[0]
-                if data_date >= start_date:
-                    self.tmp.append(data)
-        
-        # 2. 일반적인 상황과 동일
-        if start_date <= end_date:
+            end_date = "9999-99-99"
+        if start_date > end_date:
+            success_flag = False
+        else:
             for data in datas:
                 data_date = data["orderat"].split(" ")[0]
                 if start_date <= data_date <= end_date:
-                    self.tmp.append(data)
-        
-        # 5. 에러로 잘못 넘겨준 경우 -> start_date > end_date
-        if start_date > end_date:
-            result_flag = False
-
-        return self.tmp, result_flag
+                    self.processed_data.append(data)
+                    
+        return self.processed_data, success_flag

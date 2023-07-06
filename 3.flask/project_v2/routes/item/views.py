@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from utils.controller import ReadCsvDict, CheckData
 from utils.static_url import item_csv_file, order_item_csv_file
 
+
 item_bp = Blueprint("item", __name__)
 
 @item_bp.route('/item')

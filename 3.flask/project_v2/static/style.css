@@ -227,3 +227,18 @@ button {
 .price_result {
     padding-top: 30px;
 }
+
+/* date_input */
+.date_input {
+    display: flex;
+    align-items: center;
+    height: 60px;
+}
+
+.date_input * {
+    margin: 0 5px;
+}
+
+.date_input input {
+    width: 120px;
+}
