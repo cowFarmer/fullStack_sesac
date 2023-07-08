@@ -59,19 +59,77 @@ WHERE DATE(InvoiceDate) >= DATE("2009-01-01") AND DATE(InvoiceDate) <= DATE("201
 
 -- 9. total_sales_{year}.sql: What are the respective total sales for each of those years?
 -- 년도별 판매 금액 출력하기
-SELECT strftime("%Y", invoices.InvoiceDate), SUM(invoice_items.UnitPrice) AS "total_salse"
+SELECT strftime("%Y", invoices.InvoiceDate), SUM(invoice_items.UnitPrice) AS "Total Sales Per Year"
 FROM invoices
 JOIN invoice_items ON invoices.InvoiceId = invoice_items.InvoiceId
 GROUP BY strftime("%Y", invoices.InvoiceDate);
 
 -- 10. invoice_37_line_item_count.sql: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
 -- invoice_items의 InvoiceLineId를 보고 InvoiceId 37의 품목 수를 카운트해라
+SELECT invoices.InvoiceId,
+    COUNT(*) AS "Count Per Invoice Id"
+FROM invoice_items
+JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
+WHERE invoices.InvoiceId = 37;
+
+-- SELECT invoices.InvoiceId,
+--     COUNT(*) AS "Count Per Invoice Id"
+-- FROM invoice_items
+-- JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
+-- GROUP BY invoices.InvoiceId;
 
 -- 11. line_items_per_invoice.sql: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
+-- invoice_items의 InvoiceLineId를 보고 각 invoice에 대해 카운트하기
+SELECT invoices.InvoiceId,
+    COUNT(*) AS "Count Per Invoice"
+FROM invoice_items
+JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
+GROUP BY invoices.InvoiceId;
+
+
 -- 12. line_item_track.sql: Provide a query that includes the purchased track name with each invoice line item.
+-- 각 invoice별 tracks의 Name 출력
+SELECT InvoiceId,
+    tracks.Name
+FROM invoice_items
+JOIN tracks ON invoice_items.TrackId = tracks.TrackId;
+
 -- 13. line_item_track_artist.sql: Provide a query that includes the purchased track name AND artist name with each invoice line item.
+-- 각 invoice별 track name, artist name 출력
+-- 궁금한 점 invoice id를 굳이 invoices를 참조해야 하나?
+SELECT 
+    invoice_items.InvoiceId,
+    tracks.Name,
+    artists.Name
+FROM invoice_items
+JOIN tracks ON invoice_items.TrackId = tracks.TrackId
+JOIN albums ON tracks.AlbumId = albums.AlbumId
+JOIN artists ON albums.ArtistId = artists.ArtistId;
+
 -- 14. country_invoices.sql: Provide a query that shows the # of invoices per country. HINT: GROUP BY
+-- 국가별 invoice 보여주기
+-- GROUP BY가 아닌 ORDER BY를 써야하는거 아닌가?
+SELECT InvoiceId,
+    customers.Country
+FROM invoices
+JOIN customers ON invoices.CustomerId = customers.CustomerId
+GROUP BY customers.Country;
+
+-- SELECT InvoiceId,
+--     customers.Country
+-- FROM invoices
+-- JOIN customers ON invoices.CustomerId = customers.CustomerId
+-- ORDER BY InvoiceId;
+
 -- 15. playlists_track_count.sql: Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resulant table.
+-- 각 track의 플레이리스트별 total number를 보여달라, 플레이 리스트 이름 꼭 들어가야함
+-- TODO
+SELECT tracks.TrackId,
+    playlists.Name
+FROM tracks
+JOIN playlist_track ON tracks.TrackId = playlist_track.TrackId
+JOIN playlists ON playlist_track.PlaylistId = playlists.PlaylistId;
+
 -- 16. tracks_no_id.sql: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
 -- 17. invoices_line_item_count.sql: Provide a query that shows all Invoices but includes the # of invoice line items.
 -- 18. sales_agent_total_sales.sql: Provide a query that shows total sales made by each sales agent.
