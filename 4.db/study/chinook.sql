@@ -52,6 +52,10 @@ SELECT COUNT(InvoiceId) AS "Total Invoices"
 FROM invoices
 WHERE DATE(InvoiceDate) >= DATE("2009-01-01") AND DATE(InvoiceDate) <= DATE("2011-12-31");
 
+-- SELECT strftime("%Y", InvoiceDate), COUNT(InvoiceId) AS "Total Invoices"
+-- FROM invoices
+-- WHERE DATE(InvoiceDate) >= DATE("2009-01-01") AND DATE(InvoiceDate) <= DATE("2011-12-31")
+-- GROUP BY strftime("%Y", InvoiceDate);
 
 -- 9. total_sales_{year}.sql: What are the respective total sales for each of those years?
 -- 년도별 판매 금액 출력하기
@@ -61,6 +65,8 @@ JOIN invoice_items ON invoices.InvoiceId = invoice_items.InvoiceId
 GROUP BY strftime("%Y", invoices.InvoiceDate);
 
 -- 10. invoice_37_line_item_count.sql: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for Invoice ID 37.
+-- invoice_items의 InvoiceLineId를 보고 InvoiceId 37의 품목 수를 카운트해라
+
 -- 11. line_items_per_invoice.sql: Looking at the InvoiceLine table, provide a query that COUNTs the number of line items for each Invoice. HINT: GROUP BY
 -- 12. line_item_track.sql: Provide a query that includes the purchased track name with each invoice line item.
 -- 13. line_item_track_artist.sql: Provide a query that includes the purchased track name AND artist name with each invoice line item.
