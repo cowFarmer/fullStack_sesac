@@ -123,12 +123,14 @@ GROUP BY customers.Country;
 
 -- 15. playlists_track_count.sql: Provide a query that shows the total number of tracks in each playlist. The Playlist name should be include on the resulant table.
 -- 각 track의 플레이리스트별 total number를 보여달라, 플레이 리스트 이름 꼭 들어가야함
--- TODO
 SELECT tracks.TrackId,
-    playlists.Name
+    playlists.Name,
+    COUNT(playlists.Name)
 FROM tracks
 JOIN playlist_track ON tracks.TrackId = playlist_track.TrackId
-JOIN playlists ON playlist_track.PlaylistId = playlists.PlaylistId;
+JOIN playlists ON playlist_track.PlaylistId = playlists.PlaylistId
+GROUP BY playlists.Name
+ORDER BY tracks.TrackId ASC;
 
 -- 16. tracks_no_id.sql: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
 -- 17. invoices_line_item_count.sql: Provide a query that shows all Invoices but includes the # of invoice line items.
