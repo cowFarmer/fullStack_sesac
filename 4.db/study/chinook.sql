@@ -13,13 +13,21 @@ FROM customers
 INNER JOIN invoices
 ON customers.CustomerId == invoices.CustomerId
 WHERE Country = "Brazil";
-
+-- 
+SELECT c.FirstName||" "||c.LastName AS "Customer Name",
+    i.InvoiceId, i.InvoiceDate, i.BillingCountry
+FROM customers c LEFT JOIN invoices i ON i.CustomerId = c.CustomerId
+WHERE Country = "Brazil";
 
 -- 4. sales_agents.sql: Provide a query showing only the Employees who are Sales Agents.
 -- sales agent를 뽑아달라
 SELECT * 
 FROM employees
 WHERE Title = "Sales Support Agent";
+-- 
+SELECT *
+FROM employees 
+WHERE title LIKE "Sales%";
 
 -- 5. unique_invoice_countries.sql: Provide a query showing a unique/distinct list of billing countries from the Invoice table.
 -- invoice에서 billing country 보여달라
@@ -47,15 +55,17 @@ JOIN employees ON customers.SupportRepId = employees.EmployeeId
 GROUP BY customers.CustomerId;
 
 -- 8. total_invoices_{year}.sql: How many Invoices were there in 2009 and 2011?
--- 2009 ~ 2011년 사이의 invoices count
-SELECT COUNT(InvoiceId) AS "Total Invoices"
+-- 2009, 2011년의 invoices count
+SELECT strftime("%Y", InvoiceDate), COUNT(InvoiceId) AS "Total Invoices"
 FROM invoices
-WHERE DATE(InvoiceDate) >= DATE("2009-01-01") AND DATE(InvoiceDate) <= DATE("2011-12-31");
-
--- SELECT strftime("%Y", InvoiceDate), COUNT(InvoiceId) AS "Total Invoices"
--- FROM invoices
--- WHERE DATE(InvoiceDate) >= DATE("2009-01-01") AND DATE(InvoiceDate) <= DATE("2011-12-31")
--- GROUP BY strftime("%Y", InvoiceDate);
+WHERE DATE(InvoiceDate) >= DATE("2009-01-01") AND DATE(InvoiceDate) <= DATE("2011-12-31")
+GROUP BY strftime("%Y", InvoiceDate);
+-- 
+SELECT COUNT(i.InvoiceId) AS CountOfInvoices,
+    strftime("%Y", i.InvoiceDate) AS InvoiceYear
+FROM invoices i
+WHERE InvoiceYear IN ("2009", "2011") 
+GROUP BY InvoiceYear;
 
 -- 9. total_sales_{year}.sql: What are the respective total sales for each of those years?
 -- 년도별 판매 금액 출력하기
@@ -85,7 +95,12 @@ SELECT invoices.InvoiceId,
 FROM invoice_items
 JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
 GROUP BY invoices.InvoiceId;
-
+-- 
+SELECT invoice_items.InvoiceId,
+    COUNT(*) AS "Count Per Invoice"
+FROM invoice_items
+JOIN invoices ON invoice_items.InvoiceId = invoices.InvoiceId
+GROUP BY invoices.InvoiceId;
 
 -- 12. line_item_track.sql: Provide a query that includes the purchased track name with each invoice line item.
 -- 각 invoice별 tracks의 Name 출력
@@ -133,13 +148,56 @@ GROUP BY playlists.Name
 ORDER BY tracks.TrackId ASC;
 
 -- 16. tracks_no_id.sql: Provide a query that shows all the Tracks, but displays no IDs. The result should include the Album name, Media type and Genre.
+-- 모든 track에 대해 album name, media type, genre를 보여줘라 단 IDs는 보여주지마
+SELECT
+    albums.Title,
+    media_types.Name,
+    genres.Name
+FROM tracks
+JOIN albums ON tracks.AlbumId = albums.AlbumId
+JOIN media_types ON tracks.MediaTypeId = media_types.MediaTypeId
+JOIN genres ON tracks.GenreId = genres.GenreId;
+
 -- 17. invoices_line_item_count.sql: Provide a query that shows all Invoices but includes the # of invoice line items.
+SELECT invoices.InvoiceId, COUNT(*)
+FROM invoices
+JOIN invoice_items ON invoices.InvoiceId = invoice_items.InvoiceId
+GROUP BY invoice_items.InvoiceId;
+
 -- 18. sales_agent_total_sales.sql: Provide a query that shows total sales made by each sales agent.
+-- 각 sales agent별 total sales 보여줘
+SELECT
+    employees.EmployeeId,
+    employees.FirstName||" "||employees.LastName AS "Employees Name",
+    employees.Title,
+    SUM(invoice_items.UnitPrice)
+FROM employees
+JOIN customers ON employees.EmployeeId = customers.SupportRepId
+JOIN invoices ON customers.CustomerId = invoices.CustomerId
+JOIN invoice_items ON invoices.InvoiceId = invoice_items.InvoiceId
+GROUP BY employees.EmployeeId;
+
 -- 19. top_2009_agent.sql: Which sales agent made the most in sales in 2009?
 --     Hint: Use the MAX function on a subquery. top_agent.sql: Which sales agent made the most in sales over all?
+-- 2009년에 누가 가장 실적이 좋니?
+SELECT EmployeesName, MAX(TotalSale)
+    FROM (
+        SELECT employees.EmployeeId,
+            employees.FirstName||" "||employees.LastName AS EmployeesName,
+            SUM(invoice_items.UnitPrice) AS TotalSale
+        FROM employees
+        JOIN customers ON employees.EmployeeId = customers.SupportRepId
+        JOIN invoices ON customers.CustomerId = invoices.CustomerId
+        JOIN invoice_items ON invoices.InvoiceId = invoice_items.InvoiceId
+        WHERE DATE(invoices.InvoiceDate) >= DATE("2009-01-01") AND DATE(invoices.InvoiceDate) <= DATE("2009-12-31")
+        GROUP BY employees.EmployeeId
+        );
+
 -- 21. sales_agent_customer_count.sql: Provide a query that shows the count of customers assigned to each sales agent.
 -- 22. sales_per_country.sql: Provide a query that shows the total sales per country.
 -- 23. top_country.sql: Which country's customers spent the most?
+
+
 -- 24. top_2013_track.sql: Provide a query that shows the most purchased track of 2013.
 -- 25. top_5_tracks.sql: Provide a query that shows the top 5 most purchased songs.
 -- 26. top_3_artists.sql: Provide a query that shows the top 3 best selling artists.
