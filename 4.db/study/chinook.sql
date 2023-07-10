@@ -196,9 +196,24 @@ SELECT EmployeesName, MAX(TotalSale)
 -- 21. sales_agent_customer_count.sql: Provide a query that shows the count of customers assigned to each sales agent.
 -- 22. sales_per_country.sql: Provide a query that shows the total sales per country.
 -- 23. top_country.sql: Which country's customers spent the most?
-
+-- 가장 많이 지불한 국가
+-- Nested Query: 안의 결과물을 토대로 바깥의 결과물 도출
+SELECT "Country",
+    MAX("Total Sales For Country") AS "Total Spent"
+FROM (
+    SELECT BillingCountry AS "Country", SUM(Total) AS "Total Sales For Country"
+    FROM invoices
+    GROUP BY BillingCountry
+);
 
 -- 24. top_2013_track.sql: Provide a query that shows the most purchased track of 2013.
 -- 25. top_5_tracks.sql: Provide a query that shows the top 5 most purchased songs.
+-- 가장 많이 구매한 5곡
+SELECT t.Name, COUNT(t.Name) AS "PurchaseCount"
+FROM tracks t
+JOIN invoice_items l ON l.TrackId = t.Trackid
+GROUP BY t.Name
+ORDER BY PurchaseCount DESC LIMIT 5;
+
 -- 26. top_3_artists.sql: Provide a query that shows the top 3 best selling artists.
 -- 27. top_media_type.sql: Provide a query that shows the most purchased Media Type.
