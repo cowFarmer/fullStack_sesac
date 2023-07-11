@@ -10,6 +10,7 @@ def generate_user(count):
     for _ in range(count):
         user = GenerateUser().generate()
         users.append(user)
+    print(users)
     return users
 
 def generate_store(count):
@@ -60,6 +61,6 @@ def main():
         printer.print_data(data, data_category)
     elif input_type == "csv":
         writer.write_data(data, file_name, data_category)
-
+        
 if __name__ == "__main__":
     main()
