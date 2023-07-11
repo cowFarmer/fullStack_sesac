@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example</title>
+    <script>
+        function changeCellColor() {
+            let cells = document.getElementsByTagName('td');
+            for (let i = 0; i < cells.length; i++) {
+                if (cells[i].style.backgroundColor === "lightblue") {
+                    cells[i].style.backgroundColor = "#00CCCC";
+                } else {
+                    cells[i].style.backgroundColor = "lightblue";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <td>셀 1</td>
+            <td>셀 2</td>
+            <td>셀 3</td>
+        </tr>
+        <tr>
+            <td>셀 4</td>
+            <td>셀 5</td>
+            <td>셀 6</td>
+        </tr>
+        <tr>
+            <td>셀 7</td>
+            <td>셀 8</td>
+            <td>셀 9</td>
+        </tr>
+    </table>
+
+    <button onclick="changeCellColor()">Change</button>
+</body>
+</html>
