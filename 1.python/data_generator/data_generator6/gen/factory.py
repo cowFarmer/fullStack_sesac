@@ -28,7 +28,6 @@ class ConcreteItem(DataGeneratorFactory):
 class DataCreator:
     def __init__(self):
         self.item_list = []
-        self.generate_type = ["user", "store", "item"]
         
     def data_category(self, category: str):
         if category == "user":
@@ -38,24 +37,17 @@ class DataCreator:
         elif category == "item":
             return ConcreteItem()
         else:
-            raise ValueError("category를 확인해 주세요")
+            raise ValueError("data_category를 확인해 주세요")
 
 # 요청자
 class DataClient:
-    def __init__(self, creator):
-        self.creator = creator
+    def __init__(self):
         self.data_list = []
 
     def data_generate(self, category: str, count=1):
+        creator = DataCreator()
         category = creator.data_category(category)
         for _ in range(count):
             result = category.generate()
             self.data_list.append(result)
-        print(self.data_list)
-        print(len(self.data_list))
         return self.data_list
-
-creator = DataCreator()
-client = DataClient(creator)
-# client = DataClient(DataCreator())
-client.data_generate("item", 10)
