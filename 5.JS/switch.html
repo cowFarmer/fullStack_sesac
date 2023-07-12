@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>switch</title>
+    <script>
+        const fruit = "apple";        
+
+        function fruitDisplay(fruit) {
+            // fruit = document.getElementById('fruitSelector').value;
+            
+            console.log(fruit)
+            result = document.getElementById("fruitResult");    
+            switch (fruit) {
+                case "apple":
+                    // document.write("this is apple<br>");
+                    result.innerHTML = "this is apple<br>";
+                    break;
+                case "banana":
+                    // document.write("this is banana<br>");
+                    result.innerHTML = "this is banana<br>";
+                    break;
+                case "orange":
+                    // document.write("this is orange<br>");
+                    result.innerHTML = "this is orange<br>";
+                    break;
+            }
+        }
+
+        const valueChange = (target) => {
+            console.log(target.value);
+        }
+    </script>
+</head>
+<body>
+    <h1>도큐먼트에 자바스크립트로 switch, case 처리하기</h1>
+    <select id="fruitSelector" onchange="fruitDisplay(this.value)">
+        <option value="apple">APPLE</option>
+        <option value="banana">BANANA</option>
+        <option value="orange">ORANGE</option>
+    </select>
+    <div id="fruitResult"></div>
+</body>
+</html>

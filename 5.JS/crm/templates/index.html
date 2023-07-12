@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border: 1px solid #444444;
+            border-collapse: collapse;
+        }
+
+        tr, th, td {
+            border: 1px solid #444444;
+        }
+    </style>
+</head>
+<body>
+    <h1>월간 매출액</h1>
+    <table>
+        <tr>
+            <td>연월</td>
+            <td>월간매출액</td>
+        </tr>
+        <!-- jinja 템플릿으로 받아온 결과 테이블로 만들기 -->
+        {% for row in rows %}
+        <tr>
+            <td class="month">{{ row[0] }}</td>
+            <td class="price">{{ row[1] }}</td>
+        </tr>
+        {% endfor %}
+        <!-- chart.js 사용하기 -->
+        <div>
+            <canvas id="chart_total_price_per_month"></canvas>
+        </div>
+    </table>
+
+    <!-- chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- <script>
+        const monthElements = document.querySelectorAll(".month")
+        const priceElements = document.querySelectorAll(".price")
+        
+        const monthList = Array.from(monthElements).map(function(element) {
+            return element.innerHTML;
+        });
+        const priceList = Array.from(priceElements).map(function(element) {
+            return element.innerHTML;
+        });
+        
+        const ctx = document.getElementById("chart_total_price_per_month")
+        
+        bar_chart(ctx)
+
+        function bar_chart(ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: monthList,
+                    datasets: [{
+                        label: "월간 매출액",
+                        data: priceList
+                    }]
+                }
+            })
+        }
+    </script> -->
+    <script>
+        const labels = {{ labels | safe }};
+        const revenues = {{ revenues | safe }};
+        
+        const ctx = document.getElementById("chart_total_price_per_month")
+
+        bar_chart(ctx)
+
+        function bar_chart(ctx) {
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: "월간 매출액",
+                        data: revenues
+                    }]
+                }
+            })
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>button</title>
+</head>
+<body>
+    <h1>button world</h1>
+    <!-- <div>
+        <input type="text" id="result" value="0">
+        <button id="plus">+1</button>
+        <button id="minus">-1</button>
+    </div>
+
+    <script>
+        const plus = document.getElementById('plus');
+        const minus = document.getElementById('minus');
+
+        plus.addEventListener('click', function(e) {
+            result.value = eval(result.value+ "+1");
+        })
+
+        minus.addEventListener('click', function (e) {
+            result.value = eval(result.value + "-1");
+        })
+    </script> -->
+
+    <div id="result">
+    </div>
+    <div>
+        <button id="inc" onclick="number_inc()">+1</button>
+        <button id="dec" onclick="number_dec()">-1</button>
+    </div>
+
+    <script>
+        function number_inc() {
+            result = document.getElementById("result");
+            let current = Number(result.innerText);
+            result.innerText = current + 1;
+        }
+
+        function number_dec() {
+            result = document.getElementById("result");
+            let current = Number(result.innerText);
+            result.innerText = current - 1;
+        }
+    </script>
+</body>
+</html>
