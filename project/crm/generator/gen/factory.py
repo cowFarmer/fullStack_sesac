@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from gen.generator import GenerateUser, GenerateStore, GenerateItem
+from gen.generator import GenerateUser, GenerateStore, GenerateItem, GenerateOrder
 
 
 # data generator 팩토리 패턴
@@ -24,6 +24,17 @@ class ConcreteItem(DataGeneratorFactory):
         item = GenerateItem().generate()
         return item
 
+class ConcreteOrder(DataGeneratorFactory):
+    def generate(self):
+        order = GenerateOrder().generate()
+        return order
+
+class ConcreteOrderItem(DataGeneratorFactory):
+    def generate(self):
+        # order_item = GenerateOrderItem().generate()
+        pass
+        # return order_item
+
 # 생성자
 class DataCreator:
     def __init__(self):
@@ -36,8 +47,11 @@ class DataCreator:
             return ConcreteStore()
         elif category == "item":
             return ConcreteItem()
+        # TODO order, orderitem 추가
+        elif category == "order":
+            return ConcreteOrder()
         else:
-            raise ValueError("data_category를 확인해 주세요")
+            raise ValueError("DataCreator를 확인해 주세요")
 
 # 요청자
 class DataClient:

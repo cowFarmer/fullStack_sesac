@@ -22,7 +22,7 @@ class CheckerInputType:
         return count_generate_items
     
     # 데이터 아웃풋 타입
-    def input_type(self, output_type):
+    def check_output_type(self, output_type):
         input_type_list = output_type
         while True:
             input_type = input(f"출력 타입을 입력하세요 {input_type_list}: ")

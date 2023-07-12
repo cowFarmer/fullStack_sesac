@@ -1,19 +1,15 @@
-class Singleton:
-    _instance = None
-    print("1")
-    @staticmethod
-    def get_instance():
-        print("2")
-        print(Singleton())
-        print(Singleton._instance)
-        if Singleton._instance is None:
-            print("3")
-            Singleton._instance = Singleton()
-        print("4")
-        return Singleton._instance
+import csv
 
-s1 = Singleton.get_instance()
-s2 = Singleton.get_instance()
+filename = "user"
+target_feature = "Id"
 
-print(id(s1))
-print(id(s2))
+data = []
+
+def read_feature(filename, target_feature):
+        with open("./save/" + filename + ".csv", "r") as file:
+            reader = csv.DictReader(file)
+            for row in reader:
+                data.append(row[target_feature])
+        return data
+
+print(read_feature(filename, target_feature))
