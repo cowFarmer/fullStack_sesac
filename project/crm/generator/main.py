@@ -19,6 +19,16 @@ def main():
     client = DataClient()
     data = client.data_generate(data_category, count)
     
+    if data_category == "item":
+        unique = []
+        set_data = []
+        for d in data:
+            name = d[1]
+            if name not in unique:
+                unique.append(name)
+                set_data.append(d)
+        data = set_data
+    
     if result_type == "console":
         printer.print_data(data)
     elif result_type == "csv":

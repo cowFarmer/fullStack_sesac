@@ -13,7 +13,7 @@ class GenerateOrderAt:
         if (self.year % 4 == 0 and self.year % 100 != 0) or self.year % 400 == 0:
             self.mdays[2] = 29
         self.day = random.randint(1, self.mdays[self.month])
-        hour = random.randint(1,24)
+        hour = random.randint(0,23)
         minute = random.randint(0,59)
         second = random.randint(0,59)
         self.order_at = datetime.datetime(self.year, self.month, self.day, hour, minute, second)

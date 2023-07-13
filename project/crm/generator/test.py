@@ -1,15 +1,12 @@
-import csv
+list = [['00c9c934-0494-4bca-b8fa-2e211bd42057', '토피 넛 라떼', '커피', '6100'], ['199a1235-57f0-4699-95b5-2a14a2276bb0', '화이트 초콜릿 모카', '커피', '5900'], ['20d784df-5bc9-47fd-880f-564874d2f3de', '생크림 케이크', '디저트', '6600'], ['269144ed-83c1-4415-801d-1e8885ef74e3', '에스프레소', '커피', '4000'], ['8acf75d2-2a85-4c97-a78f-fb5bef182603', '아포카토', '커피', '4000'], ['a39f1f23-ecbd-4f8d-9054-61ace1a211a9', '화이트 초콜릿 모카', '커피', '5900'], ['d5e62a31-e3c5-4538-85ae-afbc548d02ba', '베이글', '디저트', '4000'], ['da99d708-9b94-4035-990d-a2ffb7afa167', '허니 브레드', '디저트', '4000'], ['e4f5f6a9-1622-4444-8b0f-9a863283790b', '카페모카', '커피', '4000'], ['e68c5148-34ce-4ac3-bd5f-1a983e2d71f2', '라즈베리 쇼콜라', '디저트', '5900']]
 
-filename = "user"
-target_feature = "Id"
+unique = []
+result = []
 
-data = []
-
-def read_feature(filename, target_feature):
-        with open("./save/" + filename + ".csv", "r") as file:
-            reader = csv.DictReader(file)
-            for row in reader:
-                data.append(row[target_feature])
-        return data
-
-print(read_feature(filename, target_feature))
+for data in list:
+    name = data[1]
+    if name not in unique:
+        unique.append(name)
+        result.append(data)
+        
+print(result)
