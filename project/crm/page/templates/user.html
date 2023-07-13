@@ -1,110 +1,24 @@
-{% extends "./common/base.html" %}
-{% block title %}
-User
-{% endblock %}
-{% block content %}
-<div class="main_container">
-    <div class="vertical_container">
-        <!-- 이름 검색 -->
-        <form action="/user" method="GET">
-            <div class="search_filter">
-                <div class="search_input">
-                    <input type="text" name="name" placeholder="검색" value="{{ search_name }}">
-                </div>
-                <div class="search_gender">
-                    <select name="gender">
-                        <option value="">성별</option>
-                        <option value="male" {% if search_gender=="male" %}selected{% endif %}>male</option>
-                        <option value="female" {% if search_gender=="female" %}selected{% endif %}>female</option>
-                    </select>
-                </div>
-                <div class="search_age">
-                    <input type="range" id="range_age" name="age_group" min="0" max="50" step="10"
-                        value="{{ search_age_group }}">
-                    <label for="range_age" id="range_label" value="0">나이</label>
-                </div>
-                <button type="submit">submit</button>
-            </div>
-        </form>
-        <div class="container">
-            <table>
-                <tr class="header">
-                    {% for header in headers %}
-                        {% if header != "id" %}
-                            <th>{{ header }}</th>
-                        {% endif %}
-                    {% endfor %}
-                </tr>
-                {% for data in datas %}
-                <tr class="data">
-                    {% for key, user in data.items() %}
-                        {% if key != "id" %}
-                            {% if key == "name" %}
-                                {% set name_id = data['id'] %}
-                                <td class="onclick_on" onclick="location.href='/user/{{ name_id }}'"><a>{{ user }}</a></td>
-                            {% else %}
-                                <td>{{ user }}</td>
-                            {% endif %}
-                        {% endif %}
-                    {% endfor %}
-                </tr>
-                {% endfor %}
-            </table>
-        </div>
-        <div class="pagination">
-            <div class="pagination_btn">
-                <!-- 이전 버튼 처리 -->
-                {% if page > 1%}
-                <!-- TODO /user를 뺄 수 있을까? -->
-                    <div class="pagination_num"><a href="/user?page=1&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">&laquo;</a></div>
-                    <div class="pagination_num"><a href="/user?page={{ page-1 }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}"><</a></div>
-                {% else %}
-                    <div class="pagination_num">&laquo;</div>
-                    <div class="pagination_num"><</div>
-                {% endif %}
-                <!-- 메인 숫자 처리 -->
-                {% for i in page_list %}
-                    {% if i == page %}
-                        <div class="pagination_num" style="font-weight: bold;">{{ i }}</div>
-                    {% else %}
-                        <div class="pagination_num"><a href="/user?page={{ i }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">{{ i }}</a></div>
-                    {% endif %}
-                {% endfor %}
-                <!-- 다음 페이지 -->
-                {% if page < total_page %} <div class="pagination_num"><a href="/user?page={{ page+1 }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">></a></div>
-                    <div class="pagination_num"><a href="/user?page={{ total_page }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">&raquo;</a></div>
-                {% else %}
-                    <div class="pagination_num">></div>
-                    <div class="pagination_num">&raquo;</div>
-                {% endif %}
-            </div>
+<!DOCTYPE html>
+<html lang="en">
 
-            <!-- pagination의 input -->
-            <div class="pagination_input">
-                <form action="/user" method="GET">
-                    <input type="number" name="page" min="1" max="{{ total_page }}" placeholder="page"
-                        value="{{ page }}" onkeydown="preventEnter(event)">
-                    <input type="hidden" name="name" value="{{ search_name }}">
-                    <input type="hidden" name="gender" value="{{ search_gender }}">
-                    <input type="hidden" name="age_group" value="{{ search_age_group }}">
-                    <button type="submit">submit</button>
-                </form>
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>user</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="main_container">
+        {% extends "./common/nav.html" %}
+
     </div>
-</div>
-<script lang="javascript">
-    const rangeInput = document.getElementById("range_age");
-    const rangeValue = document.getElementById("range_label");
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
 
-    rangeInput.addEventListener('input', function () {
-        rangeValue.textContent = rangeInput.value + "대";
-    });
-
-    function preventEnter(e) {
-        if (e.code == "Enter") {
-            event.preventDefault();
-        }
-    }
-</script>
-{% endblock %}
+</html>
