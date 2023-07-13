@@ -58,20 +58,46 @@ class GenerateItem:
     
 class GenerateOrder:
     _instance = None
+    store_uuid = None
+    user_uuid = None
+    
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls, *args, **kwargs)
+            cls.get_uuid = GetUuid()
+            cls.store_uuid = cls.get_uuid.get_uuid_from_data("store", "Id")
+            cls.user_uuid = cls.get_uuid.get_uuid_from_data("user", "Id")
+        return cls._instance
+            
     def __init__(self):
         self.gen_uuid = GenerateUuid()
         self.gen_order_at = GenerateOrderAt()
-        if GenerateOrder._instance is None:
-            self.get_uuid = GetUuid()
-            self.store_uuid = self.get_uuid.get_uuid_from_data("store", "Id")
-            self.user_uuid = self.get_uuid.get_uuid_from_data("user", "Id")
-            GenerateOrder._instance = GenerateOrder()
-            
     
     def generate(self):
         uuid = self.gen_uuid.get_uuid()
         order_at = self.gen_order_at.get_order_at()
         get_store_uuid = random.choice(self.store_uuid)
         get_user_uuid = random.choice(self.user_uuid)
-        
         return [uuid, order_at, get_store_uuid, get_user_uuid]
+    
+class GenerateOrderItem:
+    _instance = None
+    order_uuid = None
+    item_uuid = None
+    
+    def __new__(cls, *args, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls, *args, **kwargs)
+            cls.get_uuid = GetUuid()
+            cls.item_uuid = cls.get_uuid.get_uuid_from_data("item", "Id")
+            cls.order_uuid = cls.get_uuid.get_uuid_from_data("order", "Id")
+        return cls._instance
+
+    def __init__(self):
+        self.gen_uuid = GenerateUuid()
+        
+    def generate(self):
+        uuid = self.gen_uuid.get_uuid()
+        order_uuid = random.choice(self.order_uuid)
+        item_uuid = random.choice(self.item_uuid)
+        return [uuid, order_uuid, item_uuid]

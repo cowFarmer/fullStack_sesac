@@ -14,7 +14,7 @@ class GenerateOrderAt:
             self.mdays[2] = 29
         self.day = random.randint(1, self.mdays[self.month])
         hour = random.randint(1,24)
-        minute = random.randint(1,60)
-        second = random.randint(1,60)
+        minute = random.randint(0,59)
+        second = random.randint(0,59)
         self.order_at = datetime.datetime(self.year, self.month, self.day, hour, minute, second)
         return self.order_at

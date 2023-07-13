@@ -4,16 +4,16 @@ import csv
 class ReadFile:
     def __init__(self, filename, target_feature=None):
         self.filename = filename
-        self.append_list = []
+        self.data_list = []
         self.target_feature = target_feature
     
     def read(self):
         with open("./src/" + self.filename, "r") as file:
             lines = file.readlines()
             for line in lines:
-                self.append_list.append(line.strip())
+                self.data_list.append(line.strip())
         file.close()
-        return list(set(self.append_list))
+        return list(set(self.data_list))
 
     def read_feature(self):
         data = []

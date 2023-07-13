@@ -3,12 +3,15 @@ from manager.read_file import ReadFile
 
 class GenerateName:
     _instance = None
+    last_names = None
+    first_names = None
     
-    def __init__(self):
-        if GenerateName._instance is None:
-            GenerateName._instance = GenerateName()
-            self.last_names = ReadFile("last_names.csv", self.last_names).read()
-            self.first_names = ReadFile("first_names.csv", self.first_names).read()
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls.last_names = ReadFile("last_names.csv").read()
+            cls.first_names = ReadFile("first_names.csv").read()
+        return cls._instance
     
     def get_name(self):
-        return random.choice(self.last_names)+random.choice(self.first_names)
+        return random.choice(self.last_names) + random.choice(self.first_names)
