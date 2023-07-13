@@ -1,0 +1,42 @@
+{% extends "./common/base.html" %}
+{% block tilte %}
+Order List
+{% endblock %}
+{% block content %}
+<div class="main_container">
+    <div class="vertical_container">
+        <div class="container">
+            <form action="/order" method="GET">
+                <div class="date_input">
+                    <input type="date" name="start_date", value="{{ start_date }}">
+                    <span>~</span>
+                    <input type="date" name="end_date", value="{{ end_date }}">
+                    <button type="submit">submit</button>
+                </div>
+            </form>
+            <table>
+                <tr class="header">
+                    {% if result_flag == False %}
+                    <h1>제대로 된 date를 입력해 주세요</h1>
+                    {% endif %}
+                    {% for header in headers %}
+                    <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+                {% for data in datas %}
+                <!-- 따옴표 반복 에러 해결용 변수 할당 -->
+                {% set data_id = data['orderid'] %}
+                <tr>
+                    {% for key, value in data.items() %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="go_back">
+            <button onclick="window.history.back()">뒤로가기</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

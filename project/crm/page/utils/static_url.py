@@ -1,0 +1,5 @@
+user_csv_file = "./database/csv/user.csv"
+store_csv_file = "./database/csv/store.csv"
+item_csv_file = "./database/csv/item.csv"
+order_csv_file = "./database/csv/order.csv"
+order_item_csv_file = "./database/csv/orderlist.csv"

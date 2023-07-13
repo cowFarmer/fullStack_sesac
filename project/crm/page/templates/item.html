@@ -1,0 +1,36 @@
+{% extends "./common/base.html" %}
+{% block title %}
+item
+{% endblock %}
+{% block content %}
+<div class="main_container">
+    <div class="vertical_container">
+        <div class="container">
+            <table>
+                <tr class="header">
+                    {% for header in headers %}
+                    {% if header != "id" %}
+                    <th>{{ header }}</th>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% for data in datas %}
+                <tr>
+                    {% for key, value in data.items() %}
+                    {% if key == "name" %}
+                    {% set data_id = data['id'] %}
+                    <td class="onclick_on" onclick="location.href='/item/{{ data_id }}'"><a>{{ value }}</a></td>
+                    {% elif key != "id" %}
+                    <td>{{ value }}</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="go_back">
+            <button onclick="window.history.back()">뒤로가기</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

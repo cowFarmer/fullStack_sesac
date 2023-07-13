@@ -1,0 +1,29 @@
+{% extends "./common/base.html" %}
+{% block title %}
+order item list
+{% endblock %}
+{% block content %}
+<div class="main_container">
+    <div class="vertical_container">
+        <div class="container">
+            <table>
+                <tr class="header">
+                    {% for header in headers %}
+                    <th>{{ header }}</th>
+                    {% endfor %}
+                </tr>
+                {% for data in datas %}
+                <tr>
+                    {% for key, value in data.items() %}
+                    <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="go_back">
+            <button onclick="window.history.back()">뒤로가기</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
