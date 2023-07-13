@@ -1,5 +1,6 @@
 import random
 
+
 class GenerateItemInfo:
     def __init__(self):
         self.items = [

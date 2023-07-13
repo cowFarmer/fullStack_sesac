@@ -1,5 +1,6 @@
 import datetime
 
+
 class GenerateAge():
     def __init__(self, birthday):
         self.today = str(datetime.datetime.now()).split(" ")[0]

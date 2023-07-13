@@ -1,6 +1,7 @@
 import random
 from manager.read_file import ReadFile
 
+
 class GenerateName:
     _instance = None
     last_names = None

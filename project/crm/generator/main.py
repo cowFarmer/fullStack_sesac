@@ -3,6 +3,7 @@ from manager.writer_data import WriterData
 from manager.printer_data import PrinterData
 from gen.factory import DataClient
 
+
 def main():
     generate_type = ["user", "store", "item", "order", "orderitem"]
     output_type = ["console", "csv"]
@@ -19,7 +20,7 @@ def main():
     data = client.data_generate(data_category, count)
     
     if result_type == "console":
-        printer.print_data(data, data_category)
+        printer.print_data(data)
     elif result_type == "csv":
         writer.write_data(data, data_category)
     
