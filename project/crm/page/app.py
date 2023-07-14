@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask
 
 # blue print
 from routes.home.views import home_bp
@@ -18,12 +18,5 @@ app.register_blueprint(item_bp)
 app.register_blueprint(order_bp)
 app.register_blueprint(order_item_bp)
 
-
-
-
-
-
-
 if __name__ == "__main__":
-    
     app.run(debug=True, port=8080)
