@@ -12,9 +12,95 @@
 </head>
 
 <body>
-    <div class="main_container">
-        {% extends "./common/nav.html" %}
-
+    <div class="main_container container">
+        {% include "./common/nav.html" %}
+        <div class="search_container">
+            <form action="/user" method="GET">
+                <div class="search_filter">
+                    <div class="search_name">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="searchInput" name="name" placeholder="검색" value="{{ search_name }}">
+                            <label for="searchInput">이름 검색</label>
+                        </div>
+                    </div>
+                    <div class="search_gender">
+                        <select name="gender" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option value="">성별</option>
+                            <option value="male"{% if search_gender=="male" %}selected{% endif %}>male</option>
+                            <option value="female"{% if search_gender=="female" %}selected{% endif %}>female</option>
+                        </select>
+                    </div>
+                    <div class="search_age">
+                        <label for="range_age" class="form-label" id="range_label" value="0">나이</label>
+                        <input type="range" class="form-range" name="age_group" min="0" max="50" step="10" id="range_age" value="{{ search_age_group }}">
+                    </div>
+                    <div class="search_submit">
+                        <button type="submit" class="btn btn-outline-primary">검색</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="user_container">
+            <table class="table table-striped table-hover">
+                <tr class="header">
+                    {% for h in header %}
+                    <td>{{ h }}</td>
+                    {% endfor %}
+                </tr>
+                {% for d in data %}
+                <tr>
+                    {% for key, value in d.items() %}
+                    {% if key == "id" %}
+                        {% set d_id = d['id'] %}
+                        <td><a class="link-opacity-100" href="{{ user }}/{{ d_id }}">{{ value }}</a></td>
+                    {% else %}
+                        <td>{{ value }}</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="pagination_container">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <!-- << 버튼 처리 -->
+                {% if page > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Previous" href="{{ user }}?page=1&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <!-- page_list 처리 -->
+                {% for i in page_list %}
+                    {% if page == i %}
+                        <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{{ user }}?page={{ i }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                <!-- >> 버튼 처리 -->
+                {% if page < total_page %}
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" href="{{ url }}?page={{ total_page }}&name={{ search_name }}&gender={{ search_gender }}&age_group={{ search_age_group }}">
+                            <span aria-hidden="true">&raquo;</span>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                {% endif %}
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
