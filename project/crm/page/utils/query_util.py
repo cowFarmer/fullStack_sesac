@@ -18,8 +18,18 @@ class QueryManager(ConnectDatabase):
         data = self.c.fetchall()
         
         result = [dict(d) for d in data]
+        print(result[0].keys())
         header = result[0].keys()
         return header, result
+    
+    # TEST 디버깅용
+    def get_count_from_query(self, query=None):
+        if query == None:
+            raise ValueError
+        self.c.execute(query)
+        data = self.c.fetchall()
+        result = [dict(d) for d in data]
+        return result        
     
     # user용 filter 추가 하지만 좋지 않아 보임
     def dict_filter(_, data: dict):
@@ -54,18 +64,39 @@ class QueryManager(ConnectDatabase):
         except:
             pass
         
+        try:
+            if "WHERE" in query:
+                search_gender = data["search_gender"]
+                query += f"AND user.gender LIKE '{search_gender}'"
+            else:
+                search_gender = data["search_gender"]
+                query += f"WHERE user.gender LIKE '{search_gender}'"
+        except:
+            pass
+        
+        try:
+            if "WHERE" in query:
+                search_age_group = data["search_age_group"]
+                query += f"AND user.age BETWEEN '{search_age_group}' AND '{search_age_group + 9}'"
+            else:
+                search_age_group = data["search_age_group"]
+                query += f"WHERE user.age BETWEEN '{search_age_group}' AND '{search_age_group + 9}'"
+        except:
+            pass
+        
         query += f'''
         {limit}
         {offset};
         '''
         return query
     
-    # TODO count_total을 search_user에 넣어야 한다
-    def count_total(cls, table, per_page):
-        query = f'''
-        SELECT COUNT(*) AS total
-        FROM {table};
-        '''
-        _, total_data = cls.get_db_from_query(query)
-        total_page = math.ceil(total_data[0]["total"] / per_page)
+    def get_count_total_from_query(self, per_page, query):
+        count_query = query.replace("SELECT *", "SELECT COUNT(*) AS 'total_count'")
+        
+        # 디버깅용
+        # total_data = self.get_count_from_query(query)
+        
+        _, total_data = self.get_db_from_query(count_query)
+        total_page = math.ceil(total_data[0]["total_count"] / per_page)
+        print(total_data, total_page)
         return total_page
