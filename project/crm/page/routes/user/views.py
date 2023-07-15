@@ -27,9 +27,14 @@ def user():
     query = query_util.search_user(search_page=search_page, search_name=search_name, search_gender=search_gender, search_age_group=search_age_group,
                            per_page=per_page)
     
+    
+    # TODO total count는 limit, offset을 하면 안됨
     header, data = query_util.get_db_from_query(query)
     
-    total_page = query_util.get_count_total_from_query(per_page, query)
+    total_data = query_util.get_count_total_from_query(query)
+    print(query)
+    print(total_data)
+    total_page = math.ceil(total_data[0]["total_count"] / per_page)
     
     page_list = pageList(search_page, total_page)
     print(total_page)

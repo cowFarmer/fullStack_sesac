@@ -1,5 +1,3 @@
-import math
-
 from utils.database_util import ConnectDatabase
 from utils.page.pagelist import pageList
 
@@ -18,7 +16,6 @@ class QueryManager(ConnectDatabase):
         data = self.c.fetchall()
         
         result = [dict(d) for d in data]
-        print(result[0].keys())
         header = result[0].keys()
         return header, result
     
@@ -90,13 +87,8 @@ class QueryManager(ConnectDatabase):
         '''
         return query
     
-    def get_count_total_from_query(self, per_page, query):
+    def get_count_total_from_query(self, query):
         count_query = query.replace("SELECT *", "SELECT COUNT(*) AS 'total_count'")
-        
-        # 디버깅용
-        # total_data = self.get_count_from_query(query)
-        
-        _, total_data = self.get_db_from_query(count_query)
-        total_page = math.ceil(total_data[0]["total_count"] / per_page)
-        print(total_data, total_page)
-        return total_page
+        # _, total_data = self.get_db_from_query(count_query)
+        total_data = self.get_count_from_query(count_query)
+        return total_data
