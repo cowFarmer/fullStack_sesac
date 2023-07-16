@@ -1,7 +1,7 @@
 import math
 
-from apps.model.database_util import ConnectDatabase
-from apps.model.pagelist import pageList
+from model.database_util import ConnectDatabase
+from model.pagelist import pageList
 
 
 class QueryManager(ConnectDatabase):

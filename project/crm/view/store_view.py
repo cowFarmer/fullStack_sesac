@@ -1,4 +1,4 @@
-from flask import Flask, render_template, Blueprint
+from flask import render_template, Blueprint
 
 
 store_bp = Blueprint("store", __name__)
