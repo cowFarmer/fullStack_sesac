@@ -28,6 +28,13 @@ def user():
     
     page_list = pageList(search_page, total_page)
     
-    return render_template("user.html", header=header, data=data, current_url = current_url,
+    print(header)
+    
+    return render_template("user/user.html", header=header, data=data, current_url = current_url,
                            search_name=search_name, search_gender=search_gender, search_age_group=search_age_group,
                            total_page=total_page, page_list=page_list, page=search_page)
+    
+@user_bp.route("/user/<id>")
+def user_detail(id):
+    print(id)
+    return render_template("user/user_info.html", id = id)

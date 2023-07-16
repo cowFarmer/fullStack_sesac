@@ -15,7 +15,18 @@ class QueryManager(ConnectDatabase):
         self.c.execute(query)
         data = self.c.fetchall()
         
+        # result = []
+        # for d in data:
+        #     d_dict = {}
+        #     for key in d.keys():
+        #         row_dict[key.lower()]
+        
+        if len(data) == 0:
+            header = None
+            result = None
+            return header, result
         result = [dict(d) for d in data]
+        print(data)
         header = result[0].keys()
         header = [d.lower() for d in header]
         return header, result
