@@ -1,8 +1,8 @@
 from flask import request, render_template, Blueprint
 import math
 
-from utils.query_util import QueryManager
-from utils.page.pagelist import pageList
+from apps.model.query_util import QueryManager
+from apps.model.pagelist import pageList
 
 
 user_bp = Blueprint("user", __name__)

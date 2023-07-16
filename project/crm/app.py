@@ -1,12 +1,12 @@
 from flask import Flask
 
 # blue print
-from routes.home.views import home_bp
-from routes.user.views import user_bp
-from routes.store.views import store_bp
-from routes.item.views import item_bp
-from routes.order.views import order_bp
-from routes.order_item.views import order_item_bp
+from apps.view.home_view import home_bp
+from apps.view.user_view import user_bp
+from apps.view.store_view import store_bp
+from apps.view.item_view import item_bp
+from apps.view.order_view import order_bp
+from apps.view.order_item_view import order_item_bp
 
 
 app = Flask(__name__, static_folder="static")
