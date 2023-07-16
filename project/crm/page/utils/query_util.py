@@ -1,3 +1,5 @@
+import math
+
 from utils.database_util import ConnectDatabase
 from utils.page.pagelist import pageList
 
@@ -87,8 +89,50 @@ class QueryManager(ConnectDatabase):
         '''
         return query
     
-    def get_count_total_from_query(self, query):
-        count_query = query.replace("SELECT *", "SELECT COUNT(*) AS 'total_count'")
-        # _, total_data = self.get_db_from_query(count_query)
-        total_data = self.get_count_from_query(count_query)
-        return total_data
+    def search_user_count(self, **kwargs):
+        data = self.dict_filter(kwargs)
+        
+        per_page = data["per_page"]
+        
+        query = f'''
+        SELECT COUNT(*) AS "total_count"
+        FROM USER
+        '''
+        
+        try:
+            search_name = data["search_name"]
+            query += f"WHERE user.name LIKE '%{search_name}%'"
+        except:
+            pass
+        
+        try:
+            if "WHERE" in query:
+                search_gender = data["search_gender"]
+                query += f"AND user.gender LIKE '{search_gender}'"
+            else:
+                search_gender = data["search_gender"]
+                query += f"WHERE user.gender LIKE '{search_gender}'"
+        except:
+            pass
+        
+        try:
+            if "WHERE" in query:
+                search_age_group = data["search_age_group"]
+                query += f"AND user.age BETWEEN '{search_age_group}' AND '{search_age_group + 9}'"
+            else:
+                search_age_group = data["search_age_group"]
+                query += f"WHERE user.age BETWEEN '{search_age_group}' AND '{search_age_group + 9}'"
+        except:
+            pass
+        
+        query += f'''
+        ;
+        '''
+        
+        _, total_data = self.get_db_from_query(query)
+        
+        for d in total_data:
+            total_count = d.get("total_count")
+            
+        total_page = math.ceil(total_count / per_page)
+        return total_page
