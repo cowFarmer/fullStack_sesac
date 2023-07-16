@@ -1,0 +1,46 @@
+<!-- pagination -->
+<div class="pagination_container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <!-- << 버튼 처리 -->
+            {% if page > 1 %}
+            <li class="page-item">
+                <a class="page-link" aria-label="Previous"
+                    href="{{ current_url }}?page=1{{ search_keyword }}">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            <!-- page_list 처리 -->
+            {% for i in page_list %}
+            {% if page == i %}
+            <li class="page-item active"><a class="page-link">{{ i }}</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link"
+                    href="{{ current_url }}?page={{ i }}{{ search_keyword }}">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+            <!-- >> 버튼 처리 -->
+            {% if page < total_page %} 
+            <li class="page-item">
+                <a class="page-link" aria-label="Next"
+                    href="{{ current_url }}?page={{ total_page }}{{ search_keyword }}">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
