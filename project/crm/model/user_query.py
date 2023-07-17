@@ -32,12 +32,13 @@ class UserSearch(QueryUtil):
             self.query += self.query_where_like("user", "gender", data["search_gender"], self.query)
             
         if "search_age_group" in data:
-            # WHERE user.age BETWEEN age_group AND age_group+9
             self.query += self.query_where_between(self.query, "user", "age", data["search_age_group"], mode="search_age_group")
         
         count = self.search_user_count(self.query)
+        
         self.query += self.query_limit_offset(limit, offset)
         self.query += self.query_end()
+        
         result = self.get_data_from_query(self.query)
         return result, count
 

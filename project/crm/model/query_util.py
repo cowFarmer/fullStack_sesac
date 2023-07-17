@@ -28,6 +28,14 @@ class QueryUtil(DatabaseController):
         header = [row[0].lower() for row in self.c.description]
         return header
     
+    def get_header_from_query(self, query=None):
+        if query == None:
+            raise ValueError
+        query = query
+        self.c.execute(query)
+        header = [row[0].lower() for row in self.c.description]
+        return header
+    
     def get_data_from_query(self, query=None):
         '''
         return [{}]
@@ -37,6 +45,19 @@ class QueryUtil(DatabaseController):
         self.connect_row()
         self.c.execute(query)
         data = self.c.fetchall()
+        result = [dict(d) for d in data]
+        result = [{k.lower(): v for k, v in row.items()} for row in result]
+        return result
+    
+    def get_one_data_from_query(self, query=None):
+        '''
+        return [{}]
+        '''
+        if query == None:
+            raise ValueError
+        self.connect_row()
+        self.c.execute(query)
+        data = self.c.fetchone()
         result = [dict(d) for d in data]
         result = [{k.lower(): v for k, v in row.items()} for row in result]
         return result
@@ -64,18 +85,16 @@ class QueryUtil(DatabaseController):
         return f"LIMIT {limit_num} "
     
     def query_where_like(self, table, feature, search, query=None):
-        if query == None:
-            return f"WHERE {table}.{feature} LIKE '{search}' "
+        if "WHERE" in query:
+            return f"AND {table}.{feature} LIKE '{search}' "
         else:
-            if "WHERE" in query:
-                return f"AND {table}.{feature} LIKE '{search}' "
+            return f"WHERE {table}.{feature} LIKE '{search}' "
     
     def query_where_like_include(self, table, feature, search, query=None):
-        if query == None:
-            return f"WHERE {table}.{feature} LIKE '%{search}%' "
+        if "WHERE" in query:
+            return f"AND {table}.{feature} LIKE '%{search}%' "
         else:
-            if "WHERE" in query:
-                return f"AND {table}.{feature} LIKE '%{search}%' "
+            return f"WHERE {table}.{feature} LIKE '%{search}%' "
     
     def query_where_between(self, query, table, feature, search, mode=None):
         if mode == "search_age_group":

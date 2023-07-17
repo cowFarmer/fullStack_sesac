@@ -15,7 +15,8 @@ def user():
     
     # OPTION
     per_page = 5
-    current_url = f"{request.url_rule}"
+    # current_url = f"{request.url_rule}"
+    current_url = "/user"
     
     # GET
     search_page = request.args.get("page", default=1, type=int)
@@ -33,7 +34,7 @@ def user():
     if search_age_group != 0:
         search_keyword += f"&age_group={search_age_group}"
     
-    return render_template("user/user.html", header=header, data=data, current_url = current_url,
+    return render_template("user/user.html", header=header, data=data, current_url=current_url,
                            search_name=search_name, search_gender=search_gender, search_age_group=search_age_group,
                            total_page=total_page, page_list=page_list, page=search_page,
                            search_keyword=search_keyword)
@@ -43,9 +44,17 @@ def user_detail(id):
     user_detail = UserDetail()
     query_util = QueryUtil()
     
-    data = user_detail.user_transaction_history(id=id)
-    header = query_util.get_header_from_table("ordered")
+    order_url = "/order_detail"
+    store_url = "/store"
     
-    print(data)
-    print(header)
-    return render_template("user/user_info.html", id = id)
+    user_header = query_util.get_header_from_table("user")
+    user_data = user_detail.user_info(id=id)
+    transaction_header = query_util.get_header_from_table("ordered")
+    transaction_data = user_detail.user_transaction_history(id=id)
+    order_item_count_header, order_item_count_data = user_detail.user_item_count_order(id=id)
+    order_store_count_header, order_store_count_data = user_detail.user_store_count_order(id=id)
+    
+    return render_template("user/user_info.html", id=id, order_url=order_url, store_url=store_url,
+                           user_header=user_header, user_data=user_data, transaction_header=transaction_header, transaction_data=transaction_data,
+                           order_item_count_header=order_item_count_header, order_item_count_data=order_item_count_data,
+                           order_store_count_header=order_store_count_header, order_store_count_data=order_store_count_data)
