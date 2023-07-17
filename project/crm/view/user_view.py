@@ -2,7 +2,8 @@ from flask import request, render_template, Blueprint
 
 from model.user_query import UserSearch
 from model.pagelist import pageList
-from model.database_util import DatabaseController
+from model.query_util import QueryUtil
+from model.user_detail_query import UserDetail
 
 
 user_bp = Blueprint("user", __name__)
@@ -10,11 +11,11 @@ user_bp = Blueprint("user", __name__)
 @user_bp.route("/user")
 def user():
     user_search = UserSearch()
-    db_controlloer = DatabaseController()
+    query_util = QueryUtil()
     
     # OPTION
     per_page = 5
-    current_url = request.url_rule
+    current_url = f"{request.url_rule}"
     
     # GET
     search_page = request.args.get("page", default=1, type=int)
@@ -22,11 +23,9 @@ def user():
     search_gender = request.args.get("gender", default="", type=str)
     search_age_group = request.args.get("age_group", default=0, type=int)
     
-    header = db_controlloer.get_header_from_table("user")
-    
-    # 필터 적용 쿼리 받기
-    data, total_page = user_search.search_user(search_page=search_page, search_name=search_name, search_gender=search_gender, search_age_group=search_age_group,
-                           per_page=per_page)
+    header = query_util.get_header_from_table("user")
+    data, total_page = user_search.search_user(search_name=search_name, search_gender=search_gender, search_age_group=search_age_group,
+                           search_page=search_page, per_page=per_page)
     
     page_list = pageList(search_page, total_page)
     
@@ -41,5 +40,12 @@ def user():
     
 @user_bp.route("/user/<id>")
 def user_detail(id):
-    print(id)
+    user_detail = UserDetail()
+    query_util = QueryUtil()
+    
+    data = user_detail.user_transaction_history(id=id)
+    header = query_util.get_header_from_table("ordered")
+    
+    print(data)
+    print(header)
     return render_template("user/user_info.html", id = id)

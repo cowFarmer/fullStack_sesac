@@ -1,15 +1,13 @@
 import math
 
-from model.query_util import QueryManager
+from model.query_util import QueryUtil
 
 
-class UserSearch(QueryManager):
+class UserSearch(QueryUtil):
     def __init__(self):
         super().__init__()
-        self.query = f'''
-        SELECT *
-        FROM USER
-        '''
+        self.query = ""
+        
     
     def search_user(self, **kwargs):
         # args 필터링
@@ -22,51 +20,31 @@ class UserSearch(QueryManager):
         offset = f"OFFSET {offset_num}"
         limit = f"LIMIT {self.per_page}"
         
-        # TODO: 정리하기
-        # 방법 1. 각 쿼리문 조회를 함수로 빼기
-        # 방법 2. list에 append하고 마지막에 for문 돌면서 추가하기
-        try:
-            search_name = data["search_name"]
-            self.query += f"WHERE user.name LIKE '%{search_name}%'"
-        except:
-            pass
+        self.query += f"{self.query_select()}"
+        self.query += f"{self.query_from('user')}"
         
-        try:
-            if "WHERE" in self.query:
-                search_gender = data["search_gender"]
-                self.query += f"AND user.gender LIKE '{search_gender}'"
-            else:
-                search_gender = data["search_gender"]
-                self.query += f"WHERE user.gender LIKE '{search_gender}'"
-        except:
-            pass
-        
-        try:
-            if "WHERE" in self.query:
-                search_age_group = data["search_age_group"]
-                self.query += f"AND user.age BETWEEN '{search_age_group}' AND '{search_age_group + 9}'"
-            else:
-                search_age_group = data["search_age_group"]
-                self.query += f"WHERE user.age BETWEEN '{search_age_group}' AND '{search_age_group + 9}'"
-        except:
-            pass
+        if "search_name" in data:
+            # WHERE user.name LIKE '%search_name%'
+            self.query += self.query_where_like_include("user", "name", data["search_name"], self.query)
+            
+        if "search_gender" in data:
+            # WHERE user.gender like 'search_gender'
+            self.query += self.query_where_like("user", "gender", data["search_gender"], self.query)
+            
+        if "search_age_group" in data:
+            # WHERE user.age BETWEEN age_group AND age_group+9
+            self.query += self.query_where_between(self.query, "user", "age", data["search_age_group"], mode="search_age_group")
         
         count = self.search_user_count(self.query)
-        
-        self.query += f'''
-        {limit}
-        {offset}
-        ;
-        '''
-        
+        self.query += self.query_limit_offset(limit, offset)
+        self.query += self.query_end()
         result = self.get_data_from_query(self.query)
         return result, count
 
     def search_user_count(self, query):
         query = query.replace("SELECT *", "SELECT COUNT(*) AS 'total_count'")
-        
+        query += self.query_end()
         data = self.get_data_from_query(query)
-        
         for d in data:
             total_count = d.get("total_count")
         
