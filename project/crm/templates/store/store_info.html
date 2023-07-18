@@ -1,0 +1,68 @@
+{% extends "./common/layout.html" %}
+{% block title %}
+store_info
+{% endblock %}
+{% block main %}
+<div class="store_container">
+    <table class="table table-striped table-hover text-center">
+        <tr class="header">
+            {% for h in store_header %}
+                <td>{{ h }}</td>
+            {% endfor %}
+        </tr>
+        <tr class="data">
+            {% for d in store_data %}
+                {% for key,value in d.items() %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            {% endfor %}
+        </tr>
+    </table>
+</div>
+<div class="store_order_statistics">
+    <div class="transaction_per_month">
+        <div class="overflow-scroll" style="height: 650px;">
+            <table class="table table-striped table-hover text-center">
+                <tr class="header" style="position: sticky; top: 0; background-color: #b0b0b0">
+                    {% for h in transaction_header %}
+                        <td>{{ h }}</td>
+                    {% endfor %}
+                </tr>
+                {% for d in transaction_data %}
+                    <tr class="data">
+                        {% for key, value in d.items() %}
+                            {% if key == "month" %}
+                                <td><a name="month" href="#">{{ value }}</a></td>
+                            {% else %}
+                                <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+    <div class="transaction_regular_customer">
+        <div class="overflow-scroll" style="height: 650px;">
+            <table class="table table-striped table-hover text-center">
+                <tr class="header" style="position: sticky; top: 0; background-color: #b0b0b0">
+                    {% for h in regular_customer_header %}
+                        <td>{{ h }}</td>
+                    {% endfor %}
+                </tr>
+                {% for d in regular_customer_data %}
+                    <tr class="data">
+                        {% for key,value in d.items() %}
+                            {% if key == "id" %}
+                                <td><a href="{{ user_url }}/{{ value }}">{{ value }}</a></td>
+                            {% else %}
+                                <td>{{ value }}</td>
+                            {% endif %}
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
