@@ -43,9 +43,8 @@ def user():
 def user_detail(id):
     query_util = QueryUtil()
     user_detail = UserDetail()
-    
-    order_url = "/order_detail"
     store_url = "/store"
+    order_url = "/order"
     
     user_header = query_util.get_header_from_table("user")
     user_data = user_detail.user_info(id=id)

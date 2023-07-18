@@ -27,7 +27,7 @@ class UserDetail(QueryUtil):
         SELECT ordered.Id, ordered.OrderAt, ordered.StoreId
         FROM user
         JOIN ordered ON user.id = ordered.UserId
-        WHERE user.id LIKE '{user_id}'
+        WHERE ordered.UserId LIKE '{user_id}'
         ORDER BY ordered.OrderAt DESC;
         '''
         

@@ -45,10 +45,6 @@ class QueryUtil(DatabaseController):
         if query == None:
             raise ValueError
         self.connect_row()
-        print("-"*10)
-        print("-"*10)
-        print("-"*10)
-        print(query)
         self.c.execute(query)
         data = self.c.fetchall()
         result = [dict(d) for d in data]
