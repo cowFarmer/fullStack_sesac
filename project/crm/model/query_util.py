@@ -1,3 +1,5 @@
+import math
+
 from model.database_util import DatabaseController
 
 
@@ -43,6 +45,10 @@ class QueryUtil(DatabaseController):
         if query == None:
             raise ValueError
         self.connect_row()
+        print("-"*10)
+        print("-"*10)
+        print("-"*10)
+        print(query)
         self.c.execute(query)
         data = self.c.fetchall()
         result = [dict(d) for d in data]
@@ -110,3 +116,13 @@ class QueryUtil(DatabaseController):
     
     def query_end(self):
         return ";"
+    
+    def search_count_from_query(self, query):
+        query = query.replace("SELECT *", "SELECT COUNT(*) AS 'total_count'")
+        data = self.get_data_from_query(query)
+        for d in data:
+            total_count = d.get("total_count")
+        
+        total_count = math.ceil(total_count / self.per_page)
+        
+        return total_count

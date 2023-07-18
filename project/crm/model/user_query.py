@@ -34,21 +34,10 @@ class UserSearch(QueryUtil):
         if "search_age_group" in data:
             self.query += self.query_where_between(self.query, "user", "age", data["search_age_group"], mode="search_age_group")
         
-        count = self.search_user_count(self.query)
+        count = self.search_count_from_query(self.query)
         
         self.query += self.query_limit_offset(limit, offset)
         self.query += self.query_end()
         
         result = self.get_data_from_query(self.query)
         return result, count
-
-    def search_user_count(self, query):
-        query = query.replace("SELECT *", "SELECT COUNT(*) AS 'total_count'")
-        query += self.query_end()
-        data = self.get_data_from_query(query)
-        for d in data:
-            total_count = d.get("total_count")
-        
-        total_count = math.ceil(total_count / self.per_page)
-        
-        return total_count

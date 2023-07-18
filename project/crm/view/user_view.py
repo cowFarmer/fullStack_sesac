@@ -14,7 +14,7 @@ def user():
     user_search = UserSearch()
     
     # OPTION
-    per_page = 5
+    per_page = 15
     # current_url = f"{request.url_rule}"
     current_url = "/user"
     

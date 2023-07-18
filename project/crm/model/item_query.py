@@ -45,7 +45,7 @@ class ItemDetail(QueryUtil):
         
         self.query = f'''
         SELECT strftime("%Y-%m", ordered.OrderAt) AS "month", SUM(item.UnitPrice) AS "total revenue", COUNT(orderitem.ItemId) AS "total count"
-        FROM Item
+        FROM item
         JOIN orderitem ON item.Id = orderitem.ItemId
         JOIN ordered ON orderitem.OrderId = ordered.Id
         WHERE item.id LIKE '{item_id}'

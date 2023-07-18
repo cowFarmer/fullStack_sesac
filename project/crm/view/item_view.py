@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request
 
-from model.item_query import ItemSearch
-from model.item_query import ItemDetail
+from model.item_query import ItemSearch, ItemDetail
 
 
 item_bp = Blueprint("item", __name__)
