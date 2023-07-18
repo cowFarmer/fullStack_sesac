@@ -36,7 +36,7 @@
             {% endfor %}
         </tr>
         {% for d in transaction_data %}
-        <tr>
+        <tr class="data">
             {% for key, value in d.items() %}
                 {% set order_id = d['id'] %}
                 {% set store_id = d['storeid'] %}

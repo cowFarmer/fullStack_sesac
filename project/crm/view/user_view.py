@@ -10,8 +10,8 @@ user_bp = Blueprint("user", __name__)
 
 @user_bp.route("/user")
 def user():
-    user_search = UserSearch()
     query_util = QueryUtil()
+    user_search = UserSearch()
     
     # OPTION
     per_page = 5
@@ -41,8 +41,8 @@ def user():
     
 @user_bp.route("/user/<id>")
 def user_detail(id):
-    user_detail = UserDetail()
     query_util = QueryUtil()
+    user_detail = UserDetail()
     
     order_url = "/order_detail"
     store_url = "/store"
