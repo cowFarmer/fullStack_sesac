@@ -31,7 +31,7 @@ class QueryUtil(DatabaseController):
     def get_header_from_query(self, query=None):
         if query == None:
             raise ValueError
-        query = query
+        self.connect()
         self.c.execute(query)
         header = [row[0].lower() for row in self.c.description]
         return header

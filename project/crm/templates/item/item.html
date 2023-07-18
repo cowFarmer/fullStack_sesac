@@ -1,0 +1,27 @@
+{% extends "./common/layout.html" %}
+{% block title %}
+item
+{% endblock %}
+{% block main %}
+<div class="item_container">
+    <table class="table table-striped table-hover text-center">
+        <tr class="header">
+            {% for h in header %}
+                <td>{{ h }}</td>
+            {% endfor %}
+        </tr>
+        {% for d in data %}
+        <tr class="data">
+            {% for key, value in d.items() %}
+                {% if key == "id" %}
+                    {% set d_id = d['id'] %}
+                    <td><a class="link-opacity-100" href="{{ current_url }}/{{ d_id }}">{{ value }}</a></td>
+                {% else %}
+                    <td>{{ value }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

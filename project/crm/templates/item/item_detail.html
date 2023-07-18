@@ -1,0 +1,110 @@
+{% extends "./common/layout.html" %}
+{% block title %}
+item_detail
+{% endblock %}
+{% block main %}
+<div class="item_container">
+    <table class="table table-striped table-hover text-center">
+        <tr class="header">
+            {% for h in item_header %}
+                <td>{{ h }}</td>
+            {% endfor %}
+        </tr>
+        <tr class="data">
+            {% for d in item_data %}
+                {% for key,value in d.items() %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+            {% endfor %}
+        </tr>
+    </table>
+</div>
+<div class="item_statistics">
+    <div class="overflow-scroll" style="height: 650px;">
+        <table class="table table-striped table-hover text-center">
+            <tr class="header" style="position: sticky; top: 0; background-color: #b0b0b0">
+                {% for h in history_header %}
+                    <td>{{ h }}</td>
+                {% endfor %}
+            </tr>
+            {% for d in history_data %}
+                <tr class="data">
+                    {% for key, value in d.items() %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="canvas">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <canvas id="chart_total_price_and_count_per_month_per_item"></canvas>
+    </div>
+</div>
+{% block js %}
+<script>
+    const month = {{ month | safe }};
+    const total_revenue = {{ total_revenue | safe }};
+    const total_count = {{ total_count | safe }};
+
+    const ctx = document.getElementById("chart_total_price_and_count_per_month_per_item");
+    new Chart(ctx, {
+        data: {
+            labels: month,
+            datasets: [{
+                type: 'bar',
+                data: total_revenue,
+                label: 'total revenue',
+                yAxisID: 'y1',
+                order: 2,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 0.2)',
+                borderWidth: 1
+            }, {
+                type: 'line',
+                data: total_count,
+                label: 'total count',
+                yAxisID: 'y2',  
+                order: 1,
+                backgroundColor: 'rgba(5, 55, 255, 0.2)',
+                borderColor: 'rgba(5, 55, 255, 0.2)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y1: {
+                    position: 'left',
+                    grid: {
+                        display: false
+                    },
+                    title: {
+                        text: 'total revenue',
+                        display: true
+                    }
+                },
+                y2: {
+                    position: 'right',
+                    grid: {
+                        display: false
+                    },
+                    title: {
+                        text: 'total count',
+                        display: true
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    text: '제품 월별 통계',
+                    display: true
+                },
+                legend: {
+                    position: 'left',
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}
