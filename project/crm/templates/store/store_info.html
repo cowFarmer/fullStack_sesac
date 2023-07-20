@@ -32,7 +32,7 @@ store_info
                     <tr class="data">
                         {% for key, value in d.items() %}
                             {% if key == "month" %}
-                                <td><a name="month" href="#">{{ value }}</a></td>
+                                <td><a name="month" href="{{ current_url }}/{{ id }}?month={{ value }}">{{ value }}</a></td>
                             {% else %}
                                 <td>{{ value }}</td>
                             {% endif %}

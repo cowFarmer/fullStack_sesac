@@ -28,16 +28,19 @@ def store():
 @store_bp.route("/store/<id>")
 def store_detail(id):
     store_detail = StoreDetail()
+    
+    current_url = "/store"
     user_url = "/user"
     
     # TODO: MONTH url 추가하기
     search_month = request.args.get("month", default="", type=str)
+    print(search_month)
     
     store_header, store_data = store_detail.store_info(id=id)
     transaction_header, transaction_data = store_detail.store_transaction_history_per_month(id=id)
     regular_customer_header, regular_customer_data = store_detail.store_transaction_history_regular_customer(id=id)
     
-    return render_template("store/store_info.html", id=id, user_url=user_url,
+    return render_template("store/store_info.html", id=id, user_url=user_url, current_url=current_url,
                            store_header=store_header, store_data=store_data,
                            transaction_header=transaction_header, transaction_data=transaction_data,
                            regular_customer_header=regular_customer_header, regular_customer_data=regular_customer_data)

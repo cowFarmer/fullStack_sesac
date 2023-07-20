@@ -1,0 +1,29 @@
+{% extends "./common/layout.html" %}
+{% block title %}
+order_item
+{% endblock %}
+{% block main %}
+<div class="order_container">
+    <table class="table table-striped table-hover text-center">
+        <tr class="header">
+            {% for h in order_item_header %}
+                <td>{{ h }}</td>
+            {% endfor %}
+        </tr>
+        {% for d in order_item_data %}
+            <tr class="data">
+                {% for key, value in d.items() %}
+                    {% if key == "orderid" %}
+                        <td><a href="{{ order_url }}/{{ value }}">{{ value }}</a></td>
+                    {% elif key == "itemid" %}
+                        <td><a href="{{ item_url }}/{{ value }}">{{ value }}</a></td>
+                    {% else %}
+                        <td>{{ value }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% include "./common/pagination.html" %}
+{% endblock %}
