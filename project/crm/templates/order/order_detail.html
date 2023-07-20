@@ -4,7 +4,11 @@ order_detail
 {% endblock %}
 {% block main %}
 <div class="order_detail_container">
+    
     <table class="table table-striped table-hover text-center">
+        <th colspan="5">
+            주문 정보
+        </th>
         <tr class="header">
             {% for h in order_detail_header %}
                 <td>{{ h }}</td>

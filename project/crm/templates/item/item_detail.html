@@ -5,6 +5,9 @@ item_detail
 {% block main %}
 <div class="item_container">
     <table class="table table-striped table-hover text-center">
+        <th colspan="2">
+            아이템 정보
+        </th>
         <tr class="header">
             {% for h in item_header %}
                 <td>{{ h }}</td>
@@ -20,8 +23,11 @@ item_detail
     </table>
 </div>
 <div class="item_statistics">
-    <div class="overflow-scroll" style="height: 650px;">
+    <div class="overflow-scroll" style="height: 650px; margin-bottom: 30px;">
         <table class="table table-striped table-hover text-center">
+            <th colspan="3">
+                아이템 월 별 통계
+            </th>
             <tr class="header" style="position: sticky; top: 0; background-color: #b0b0b0">
                 {% for h in history_header %}
                     <td>{{ h }}</td>
@@ -36,7 +42,7 @@ item_detail
             {% endfor %}
         </table>
     </div>
-    <div class="canvas">
+    <div class="canvas" style="margin-bottom: 30px;">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <canvas id="chart_total_price_and_count_per_month_per_item"></canvas>
     </div>

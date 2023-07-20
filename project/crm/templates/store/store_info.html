@@ -5,6 +5,9 @@ store_info
 {% block main %}
 <div class="store_container">
     <table class="table table-striped table-hover text-center">
+        <th colspan="3">
+            스토어 정보
+        </th>
         <tr class="header">
             {% for h in store_header %}
                 <td>{{ h }}</td>
@@ -20,9 +23,12 @@ store_info
     </table>
 </div>
 <div class="store_order_statistics">
-    <div class="transaction_per_month">
+    <div class="transaction_per_month" style="margin-bottom: 30px;">
         <div class="overflow-scroll" style="height: 650px;">
             <table class="table table-striped table-hover text-center">
+                <th colspan="3">
+                    스토어 월 별 통계
+                </th>
                 <tr class="header" style="position: sticky; top: 0; background-color: #b0b0b0">
                     {% for h in transaction_header %}
                         <td>{{ h }}</td>
@@ -42,9 +48,12 @@ store_info
             </table>
         </div>
     </div>
-    <div class="transaction_regular_customer">
+    <div class="transaction_regular_customer" style="margin-bottom: 30px;">
         <div class="overflow-scroll" style="height: 650px;">
             <table class="table table-striped table-hover text-center">
+                <th colspan="4">
+                    스토어 단골 고객
+                </th>
                 <tr class="header" style="position: sticky; top: 0; background-color: #b0b0b0">
                     {% for h in regular_customer_header %}
                         <td>{{ h }}</td>

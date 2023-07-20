@@ -5,9 +5,9 @@ user
 {% block main %}
 <div class="search_container">
     <form action="/user" method="GET">
-        <div class="search_filter">
-            <div class="search_name">
-                <div class="form-floating mb-3">
+        <div class="search_filter d-flex flex-row mb-3 justify-content-evenly align-items-center">
+            <div class="search_name col-3">
+                <div class="form-floating">
                     <input type="text" class="form-control" id="searchInput" name="name" placeholder="검색" value="{{ search_name }}">
                     <label for="searchInput">이름 검색</label>
                 </div>
@@ -19,7 +19,7 @@ user
                     <option value="female"{% if search_gender=="female" %}selected{% endif %}>female</option>
                 </select>
             </div>
-            <div class="search_age">
+            <div class="search_age col-3">
                 <label for="range_age" class="form-label" id="range_label" value="0">나이</label>
                 <input type="range" class="form-range" name="age_group" min="0" max="50" step="10" id="range_age" value="{{ search_age_group }}">
             </div>
@@ -31,6 +31,9 @@ user
 </div>
 <div class="user_container">
     <table class="table table-striped table-hover text-center">
+        <th colspan="6">
+            유저 정보
+        </th>
         <tr class="header">
             {% for h in header %}
                 <td>{{ h }}</td>
@@ -51,4 +54,14 @@ user
     </table>
 </div>
 {% include "./common/pagination.html" %}
+{% block js %}
+<script>
+    const rangeInput = document.getElementById("range_age");
+    const rangeValue = document.getElementById("range_label");
+
+    rangeInput.addEventListener('input', function () {
+        rangeValue.textContent = rangeInput.value + "대";
+    });
+</script>
+{% endblock %}
 {% endblock %}
