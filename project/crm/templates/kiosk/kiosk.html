@@ -1,0 +1,23 @@
+{% extends "./common/layout.html" %}
+{% block title %}
+kiosk
+{% endblock %}
+{% block main %}
+<div class="kiosk_container">
+    <div class="row d-flex justify-content-center align-items-center">
+        {% for d in data %}
+            <div class="col col-lg-5 border border-dark rounded-2 p-10 w-50 text-center">
+                {% for key, value in d.items() %}
+                    <a href="{{ current_url }}/{{ d['id'] }}" style="text-decoration: none; color:#212529;">
+                        {% if key == "type" %}
+                            <div><h3>{{ value }}</h3></div>
+                        {% elif key == "address" %}
+                            <div>{{ value }}</div>
+                        {% endif %}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

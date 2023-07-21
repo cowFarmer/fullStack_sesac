@@ -28,6 +28,20 @@ class StoreSearch(QueryUtil):
         store_item = self.get_data_from_query(self.query)
         
         return store_item, count
+    
+    def store_data(self, **kwargs):
+        data = self.dict_filter(kwargs)
+        
+        self.query += '''
+        SELECT *
+        FROM store
+        ORDER BY store.Name, store.Type;
+        '''
+        
+        header = self.get_header_from_query(self.query)
+        data = self.get_data_from_query(self.query)
+        
+        return header, data
         
 
 class StoreDetail(QueryUtil):
