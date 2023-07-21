@@ -8,7 +8,7 @@ kiosk_bp = Blueprint('kiosk', __name__)
 
 @kiosk_bp.route("/kiosk")
 def kiosk():
-    # TODO 
+    # TODO 1차
     # 1. store 정보 가져오기
     # 2. store 선택하여 kiosk_store로 이동하기
     query_util = QueryUtil()
@@ -21,7 +21,7 @@ def kiosk():
 
 @kiosk_bp.route("/kiost/store=<id>")
 def kiosk_store(id):
-    # TODO
+    # TODO 2차
     # 3. store에 있는 메뉴 조회할 수 있게 하기
     # 4. 메뉴 +- 버튼 만들기
     # 5. submit 버튼 만들기
