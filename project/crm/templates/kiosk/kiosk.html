@@ -2,11 +2,22 @@
 {% block title %}
 kiosk
 {% endblock %}
+{% block style %}
+<style>
+    #hover {
+        transition: background-color 0.3s;
+    }
+
+    #hover:hover {
+        background-color: #d6d6d6;
+    }
+</style>
+{% endblock %}
 {% block main %}
 <div class="kiosk_container">
     <div class="row d-flex justify-content-center align-items-center">
         {% for d in data %}
-            <div class="col col-lg-5 border border-dark rounded-2 p-10 w-50 text-center">
+            <div class="col col-lg-5 border border-dark rounded-2 p-10 w-40 text-center mx-5 my-3" id="hover">
                 <a href="{{ current_url }}/store={{ d['id'] }}" style="text-decoration: none; color:#212529;">
                     {% for key, value in d.items() %}
                         {% if key == "type" %}
