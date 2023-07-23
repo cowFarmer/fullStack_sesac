@@ -17,8 +17,9 @@ home
 <div class="grid text-center mt-5" id="main_hover" style="height: 500px;">
     <a href="{{ kiosk_url }}" style="text-decoration: none;">
         <div class="search_filter d-flex flex-row mb-3 justify-content-center align-items-center w-100 h-100">
-            <div class="text-bg-dark p-3 w-100 h-100 d-flex justify-content-center align-items-center" style="--bs-bg-opacity: .8;">
-                <h1>비회원 주문으로 키오스크를 경험해 보세요.</h1>
+            <div class="position-relative text-bg-dark w-100 h-100 d-flex justify-content-center align-items-center overflow-hidden" style="--bs-bg-opacity: .8;">
+                <img src="{{ url_for('static', filename='img/marco-di-norcia-6TihBvRlbG4-unsplash.jpg')}}" alt="kiosk_img" class="img-fluid object-fit-cover">
+                <h1 class="position-absolute top-50 start-50 translate-middle">간편 주문으로 키오스크를 경험해 보세요.</h1>
             </div>
         </div>
     </a>
