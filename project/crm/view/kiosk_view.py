@@ -34,10 +34,11 @@ def kiosk_store(id):
         
         for idx, d in enumerate(request_data_count):
             if int(d) != 0:
-                order_check_flag += 1
-                ordered_append.kiosk_data(user_id=user_id, store_id=store_id)
-                ordered_id = ordered_append.get_ordered_id()
-                orderitem_append.kiosk_data(order_id=ordered_id, item_id=request_item_id[idx])
+                for _ in range(int(d)):
+                    order_check_flag += 1
+                    ordered_append.kiosk_data(user_id=user_id, store_id=store_id)
+                    ordered_id = ordered_append.get_ordered_id()
+                    orderitem_append.kiosk_data(order_id=ordered_id, item_id=request_item_id[idx])
         if order_check_flag == 0:
             pass
         else:

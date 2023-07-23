@@ -46,7 +46,7 @@ class OrderitemAppend(DatabaseController):
     def __init__(self):
         super().__init__()
         
-        self.orderitem_id = str(uuid.uuid4())
+        # self.orderitem_id = str(uuid.uuid4())
         
     def kiosk_data(self, **kwargs):
         order_id = kwargs["order_id"]
@@ -55,7 +55,7 @@ class OrderitemAppend(DatabaseController):
     
     def update_db(self, order_id, item_id):
         table_name = "orderitem"
-        id = self.orderitem_id
+        id = str(uuid.uuid4())
         order_id = order_id
         item_id = item_id
         
