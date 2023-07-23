@@ -30,15 +30,21 @@ kiosk_order
                     <th colspan="5">
                        주문 가능한 아이템 
                     </th>
+                    <tr class="header">
+                        {% for d in item_header %}
+                            <td>{{ d }}</td>
+                        {% endfor %}
+                    </tr>
                     {% for d in item_data %}
                         <tr class="data">
                             {% for key, value in d.items() %}
+                                {% if key == "id" %}
+                                    <input type="hidden" name="item_id" value="{{ value }}">
+                                {% endif %}
                                 <td>{{ value }}</td>
                                 {% if key == "unitprice" %}
                                     <td><input type="number" name="item_count" min="0", max="100" step="1" value="0"></td>
                                 {% endif %}
-                                <input type="hidden" name="item_key" value="{{ key }}">
-                                <input type="hidden" name="item_value" value="{{ value }}">
                             {% endfor %}
                         </tr>
                     {% endfor %}

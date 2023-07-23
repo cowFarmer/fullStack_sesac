@@ -61,7 +61,6 @@ class StoreDetail(QueryUtil):
         
         store_header = self.get_header_from_query(self.query)
         store_data = self.get_data_from_query(self.query)
-        
         return store_header, store_data
     
     def store_transaction_history_per_month(self, **kwargs):
