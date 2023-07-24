@@ -4,3 +4,6 @@
 # python 컴파일, 바이너리
 __pycache__
 *.pyc
+
+# database
+*.db
