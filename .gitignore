@@ -7,3 +7,9 @@ __pycache__
 
 # database
 *.db
+
+# pycache
+__pycache__
+
+# ORM
+instance/
