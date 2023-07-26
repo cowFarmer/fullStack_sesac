@@ -28,15 +28,20 @@ def kiosk_store(id):
     if request.method == "POST":
         request_data_count = request.form.getlist('item_count')
         request_item_id = request.form.getlist('item_id')
+        # TODO
+        # 설계적으로 url Parsing은 안좋음 수정 필요
+        
         store_id = request.base_url.split("/")[-1].replace("store=", "")
         user_id = None
         order_check_flag = 0
         
         for idx, d in enumerate(request_data_count):
             if int(d) != 0:
+                order_check_flag += 1
+                # TODO
+                # for 루프 안돌게 수정
                 for _ in range(int(d)):
-                    order_check_flag += 1
-                    ordered_append.kiosk_data(user_id=user_id, store_id=store_id)
+                    ordered_append.kiosk_data(user_id=user_id, store_id=id)
                     ordered_id = ordered_append.get_ordered_id()
                     orderitem_append.kiosk_data(order_id=ordered_id, item_id=request_item_id[idx])
         if order_check_flag == 0:
@@ -51,8 +56,3 @@ def kiosk_store(id):
     
     return render_template("kiosk/kiosk_order.html", id=id, 
                            store_header=store_header, store_data=store_data, item_header=item_header, item_data=item_data)
-
-
-@kiosk_bp.route("/kiosk/done", methods=["GET", "POST"])
-def kiosk_done():
-    return render_template("kiosk/kiosk_done.html")

@@ -11,9 +11,9 @@ class UserDetail(QueryUtil):
         user_id = data["id"]
         
         self.query = f'''
-        SELECT *
-        FROM user
-        WHERE user.id LIKE '{user_id}';
+            SELECT *
+            FROM user
+            WHERE user.id LIKE '{user_id}';
         '''
         
         result = self.get_data_from_query(self.query)

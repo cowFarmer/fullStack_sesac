@@ -37,13 +37,13 @@ class ConcreteOrderItem(DataGeneratorFactory):
 # 생성자
 class DataCreator:
     def data_category(self, category: str):
+        # TODO if문 제거할 수 있는 방향 고려하기 
         if category == "user":
             return ConcreteUser()
         elif category == "store":
             return ConcreteStore()
         elif category == "item":
             return ConcreteItem()
-        # TODO order, orderitem 추가
         elif category == "order":
             return ConcreteOrder()
         elif category == "orderitem":
