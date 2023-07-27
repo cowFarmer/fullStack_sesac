@@ -1,0 +1,18 @@
+{% extends "./common/base.html" %}
+{% block title %}
+register
+{% endblock %}
+{% block main %}
+    <h1 class="mt-5">회원가입</h1>
+    <div class="input-group input-group-lg mt-2 d-flex flex-column">
+        <form action="{{ url_for('register') }}" method="post">
+            <label>아이디 <input type="text" name="username" required class="form-control mb-2"></label>
+            <br>
+            <label>비밀번호 <input type="password" name="password" required class="form-control mb-2"></label>
+            <br>
+            <label>이메일 <input type="email" name="email" class="form-control mb-2"></label>
+            <br>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "./common/base.html" %}
+{% block title %}
+    profile
+{% endblock %}
+{% block main %}
+    <h1 class="mt-5">프로필 수정</h1>
+    <div class="input-group input-group-lg mt-2 d-flex flex-column">
+        <form action="{{ url_for('profile_edit') }}" method="post">
+            <label>새로운 비밀번호 <input type="password" name="new_password" required class="form-control mb-2"></label>
+            <input type="submit" value="수정">
+        </form>
+        <br>
+        <div>
+            <form action="{{ url_for('profile_delete') }}" method="post">
+                <input type="submit" value="회원 탈퇴" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+{% endblock %}
