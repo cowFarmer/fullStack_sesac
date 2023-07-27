@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 """
 LoginManager: 로그인 관리를 담당하는 클래스로, Flask 애플리케이션에서 로그인 기능을 초기화하고 관리하는 역할을 합니다.
 UserMixin: UserMixin 클래스는 Flask-Login이 기본적으로 사용하는 사용자 모델 클래스를 정의하기 위해 사용됩니다. 이 클래스를 사용하여 사용자 모델 클래스에 필요한 메서드들을 간단하게 추가할 수 있습니다.
@@ -30,7 +31,7 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(120), nullable=False)
-    email = db.Column(db.String(80), unique=True, nullable=True)
+    email = db.Column(db.String(80), nullable=True)
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -53,14 +54,11 @@ def login():
         password = request.form["password"]
         
         user = User.query.filter(User.username==username).first()
-        print(user.username)
         if user and user.check_password(password):
             flash("로그인에 성공 했습니다", "primary")
             login_user(user)
-            # return "로그인에 성공했습니다."
         else:
             flash("로그인에 실패했습니다.", "danger")
-            return "로그인에 실패했습니다."
     return redirect(url_for("main"))
 
 @app.route("/logout")
@@ -76,8 +74,21 @@ def profile_edit():
         new_password = request.form["new_password"]
         current_user.set_password(new_password)
         db.session.commit()
+        flash("성공적으로 수정 되었습니다.", "success")
         return redirect(url_for("main"))
-    return render_template("profile_edit.html")
+    return render_template("profile_edit.html", current_user=current_user)
+
+@app.route("/profile_delete", methods=["POST"])
+@login_required
+def profile_delete():
+    if request.method == "POST":
+        user = User.query.filter_by(username=current_user.username).first()
+        if user:
+            db.session.delete(user)
+            db.session.commit()
+            flash("성공적으로 삭제 되었습니다.", "danger")
+            return redirect(url_for("main"))
+    return render_template("profile_edit.html", current_user=current_user)
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -93,14 +104,15 @@ def register():
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
+        flash("성공적으로 생성 되었습니다.", "info")
         return redirect(url_for("main"))
-    return render_template("register.html")
+    return render_template("register.html", current_user=current_user)
 
 @app.route("/users")
 @login_required
 def view_users():
     users = User.query.all()
-    return render_template("users.html", users=users)
+    return render_template("users.html", users=users, current_user=current_user)
 
 if __name__ == "__main__":
     with app.app_context():
