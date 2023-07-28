@@ -1,0 +1,30 @@
+{% extends "common/base.html" %}
+{% block title %}
+    장바구니
+{% endblock %}
+{% block main %}
+    <table class="table table-striped table-hover table-bordered">
+        <tr >
+            <td>이름</td>
+            <td>가격</td>
+            <td>개수</td>
+            <td>금액</td>
+            <td>취소</td>
+        </tr>
+        {% for cart_key, cart_value in cart.items() %}
+        <tr>
+            <td>{{ cart_value.name }}</td>
+            <td>{{ cart_value.price }}</td>
+            <td>{{ cart_value.count }}</td>
+            <td>{{ cart_value.price * cart_value.count }}</td>
+            <td><a href="{{ url_for('remove_item_from_cart', item_code=cart_key) }}">❌</a></td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td>총 금액</td>
+            <td colspan="2"></td>
+            <td>{{ total_price }}</td>
+            <td><a href="{{ url_for('remove_item_from_cart', item_code='all') }}">전체 삭제</a></td>
+        </tr>
+    </table>
+{% endblock %}

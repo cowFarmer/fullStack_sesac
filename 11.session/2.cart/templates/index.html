@@ -1,0 +1,15 @@
+{% extends "common/base.html" %}
+{% block title %}
+    cart
+{% endblock %}
+{% block main %}
+    <h1>상품 목록</h1>
+    <ul>
+        {% for item_code, item_info in items.items() %}
+        <li name="{{ item_code }}">
+            상품명: {{ item_code }} (가격: {{ item_info }})
+        </li>
+        <a href="{{ url_for('add_to_cart', item_code=item_code) }}">추가하기</a>
+        {% endfor %}
+    </ul>
+{% endblock %}
