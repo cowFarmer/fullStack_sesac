@@ -1,5 +1,5 @@
+{% include 'todo/nav.html' %}
 <h1>todo list</h1>
-
 <ul>
     {% for task in tasks %}
     <li><a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a></li>

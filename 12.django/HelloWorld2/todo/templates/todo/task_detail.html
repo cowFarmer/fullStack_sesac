@@ -1,7 +1,13 @@
+{% include 'todo/nav.html' %}
 <h1>{{ task.title }}</h1>
 <p>설명: {{ task.description }}</p>
 <p>완료: {{ task.completed }}</p>
 <p>생성 시간: {{ task.created_at }}</p>
 
+
+<form method="put">
 <a href="{% url 'task_update' task.pk %}">수정</a>
+</form>
+<form method="delete">
 <a href="{% url 'task_delete' task.pk %}">삭제</a>
+</form>
