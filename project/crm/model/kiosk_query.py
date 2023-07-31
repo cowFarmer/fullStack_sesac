@@ -12,7 +12,6 @@ class OrderedAppend(DatabaseController):
         super().__init__()
         
         self.ordered_id = str(uuid.uuid4())
-        
         self.tmp_user_id = str(uuid.uuid4())
         self.date_time_now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
@@ -22,6 +21,7 @@ class OrderedAppend(DatabaseController):
         else:
             self.user_id = kwargs["user_id"]
         self.store_id = kwargs["store_id"]
+        
         self.update_db()
     
     def update_db(self):
@@ -39,9 +39,11 @@ class OrderedAppend(DatabaseController):
         self.commit()
         self.close()
         
-    def get_ordered_id(self):
+    def get_tmp_ordered_id(self):
         return self.ordered_id
 
+    def get_tmp_user_id(self):
+        return self.tmp_user_id
 class OrderitemAppend(DatabaseController):
     def __init__(self):
         super().__init__()
@@ -51,7 +53,9 @@ class OrderitemAppend(DatabaseController):
     def kiosk_data(self, **kwargs):
         order_id = kwargs["order_id"]
         item_id = kwargs["item_id"]
-        self.update_db(order_id, item_id)
+        
+        for _ in range(kwargs["count"]):
+            self.update_db(order_id, item_id)
     
     def update_db(self, order_id, item_id):
         table_name = "orderitem"
