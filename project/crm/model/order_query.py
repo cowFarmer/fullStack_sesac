@@ -68,7 +68,7 @@ class OrderDetailSearch(QueryUtil):
         order_id = data["id"]
         
         self.query += f'''
-        SELECT orderitem.Id, orderitem.OrderId, ordered.OrderAt, orderitem.ItemId, item.Name
+        SELECT ordered.Id, orderitem.Id AS orderitemId, ordered.OrderAt, orderitem.ItemId, item.Name
         FROM ordered
         JOIN orderitem ON ordered.Id = orderitem.OrderId
         JOIN item ON orderitem.ItemId = item.Id
