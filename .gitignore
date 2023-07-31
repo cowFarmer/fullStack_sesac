@@ -8,9 +8,7 @@ __pycache__
 # database
 *.db
 *.sqlite
+*.sqlite3
 
 # pycache
 __pycache__
-
-# ORM
-instance/
