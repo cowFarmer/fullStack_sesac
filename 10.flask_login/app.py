@@ -3,6 +3,7 @@ from flask import flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_migrate import Migrate
 
 
 """
@@ -23,6 +24,9 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 # DB 생성
 db = SQLAlchemy(app)
 
+# DB migration 모듈 로딩
+migrate = Migrate(app, db)
+
 # 로그인 매니저 생성
 login_manager = LoginManager(app)
 login_manager.login_view = "login" # 로그인 페이지 URI 명시
@@ -30,14 +34,17 @@ login_manager.login_view = "login" # 로그인 페이지 URI 명시
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    password_hash = db.Column(db.String(120), nullable=False)
-    email = db.Column(db.String(80), nullable=True)
+    password = db.Column(db.String(120), nullable=False)
+    # password_hash = db.Column(db.String(120), nullable=False)
+    # email = db.Column(db.String(80), nullable=True)
     
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password = password
+        # self.password_hash = generate_password_hash(password)
         
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        return self.password == password
+        # return check_password_hash(self.password_hash, password)
     
 @login_manager.user_loader
 def load_user(user_id):
@@ -100,7 +107,8 @@ def register():
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             return "사용자가 이미 존재합니다."
-        new_user = User(username=username, email=email)
+        new_user = User(username=username)
+        # new_user = User(username=username, email=email)
         new_user.set_password(password)
         db.session.add(new_user)
         db.session.commit()
