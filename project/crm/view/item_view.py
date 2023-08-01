@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 
 from model.item_query import ItemSearch, ItemDetail
-
+from app import Store
 
 item_bp = Blueprint("item", __name__)
 
@@ -10,6 +10,9 @@ def item():
     item_search = ItemSearch()
     current_url = "/item"
     header, data = item_search.search_item()
+    test = Store.query.all()
+    print(test)
+    
     return render_template("item/item.html", current_url=current_url, header=header, data=data)
 
 @item_bp.route("/item/<id>")

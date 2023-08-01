@@ -28,9 +28,6 @@ class User(db.Model):
     age = db.Column(db.Integer())
     birthdate = db.Column(db.String(32))
     address = db.Column(db.String(64))
-    
-    def __repr__(self):
-        return {f"id: '{self.id}', name: '{self.name}', gender: '{self.age}'"}
 
 class Store(db.Model):
     __tablename__ = "store"
@@ -52,18 +49,12 @@ class Item(db.Model):
     type = db.Column(db.String(64))
     unitpirce = db.Column(db.Integer())
     
-    def __repr__(self):
-        return 
-    
 class Ordered(db.Model):
     __tablename__ = "ordered"
     id = db.Column(db.String(64), primary_key=True)
     orderat = db.Column(db.DateTime(64))
     storeid = db.Column(db.String(64), db.ForeignKey("store.id"))
     userid = db.Column(db.String(64), db.ForeignKey("user.id"))
-    
-    def __repr__(self):
-        return f"id: '{self.id}', orderat: '{self.orderat}', storeid: '{self.storeid}', userid: '{self.userid}'"
 
 blueprint_list = [home_bp, user_bp, store_bp, item_bp, order_bp, order_item_bp, kiosk_bp]
 
@@ -73,8 +64,8 @@ for blueprint in blueprint_list:
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        test = User.query.all()
-        print(test)
         
-    
+        result = User.query.limit(1).all()
+        result_dict = [row.__dict__ for row in result]
+        
     app.run(debug=True, port=8080)
