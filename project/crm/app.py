@@ -1,15 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-
-from view.home_view import home_bp
-from view.user_view import user_bp
-from view.store_view import store_bp
-from view.item_view import item_bp
-from view.order_view import order_bp
-from view.order_item_view import order_item_bp
-from view.kiosk_view import kiosk_bp
-
 import os
+
+from view.blue_print import register_bp
 
 
 app = Flask(__name__, static_folder="static")
@@ -20,6 +13,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
+# TODO definition table 나누기
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column(db.String(64), primary_key=True)
@@ -56,10 +50,7 @@ class Ordered(db.Model):
     storeid = db.Column(db.String(64), db.ForeignKey("store.id"))
     userid = db.Column(db.String(64), db.ForeignKey("user.id"))
 
-blueprint_list = [home_bp, user_bp, store_bp, item_bp, order_bp, order_item_bp, kiosk_bp]
-
-for blueprint in blueprint_list:
-    app.register_blueprint(blueprint)
+register_bp(app)
 
 if __name__ == "__main__":
     with app.app_context():
