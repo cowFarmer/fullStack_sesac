@@ -1,0 +1,13 @@
+<h1>Create Task</h1>
+<form method="post">
+    <label>Title</label>
+    {% csrf_token %}
+    <br>
+    <input type="text" name="title" value="{{ task.title }}" required>
+    <br>
+    <label>Description</label>
+    <br>
+    <textarea name="description" required>{{ task.description }}</textarea>
+    <br>
+    <input type="submit" value="저장">
+</form>
