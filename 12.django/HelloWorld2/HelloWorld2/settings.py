@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'helloapp',
     'todo',
     'photo_upload',
+    'poll',
 ]
 
 MIDDLEWARE = [

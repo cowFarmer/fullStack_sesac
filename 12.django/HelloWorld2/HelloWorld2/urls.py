@@ -8,7 +8,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('helloapp.urls')),
     path('todo/', include('todo.urls')),
-    path('photo/', include('photo_upload.urls'))
+    path('photo/', include('photo_upload.urls')),
+    path('poll/', include('poll.urls'))
     # static('/media), BASE_DIR/upload/photos -> urlpatterns와 동일
 ]
 
