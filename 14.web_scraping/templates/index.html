@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table style="border: 1;">
+        <th>
+            <tr>id</tr>
+            <tr>이름</tr>
+            <tr>평점</tr>
+            <tr>예매율</tr>
+            <tr>이미지</tr>
+            <tr>요약글</tr>
+        </th>
+        {% for d in result %}
+            <tr>
+                <td>{{ d[0] }}</td>
+                <td>{{ d[1] }}</td>
+                <td>{{ d[2] }}</td>
+                <td>{{ d[3] }}%</td>
+                <td><img src="{{ d[4] }}" alt="{{ d[4] }}"></td>
+                <td>{{ d[5] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
