@@ -1,8 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
+from datetime import date
 
 
-def get_movie_data():
+def get_movie_ranking_data():
     movie_url = "https://movie.daum.net"
     ranking_url = "/ranking/reservation"
     
@@ -18,33 +19,24 @@ def get_movie_data():
         
         name = movie_thumb_cont.select_one('.tit_item > a').text
         grade = movie_thumb_cont.select_one('.txt_grade').text
-        reservation_percente = movie_thumb_cont.select_one('.info_txt > .txt_num').text[:-1]
+        reservation_percente = movie_thumb_cont.select_one('.info_txt > .txt_num').text
         img_url = movie.select_one('.img_thumb')['src']
         short_summary = movie_info.text.strip()
+        url = f"{movie_url}{movie_thumb_cont.select_one('.tit_item > a')['href']}"
+        ranking = movie.select_one('.rank_num').text
+        today_date = date.today()
         
         movie_data.append({
             'name': name,
             'grade': grade,
             'reservation_percente': reservation_percente,
             'img_url': img_url,
-            'short_summary': short_summary
+            'short_summary': short_summary,
+            'url': url,
+            'ranking': ranking,
+            'today_date': today_date,
         })
     return movie_data
-    
-        # sql = "INSERT INTO movie(name, grade, reservation_percente, img_url, short_summary) VALUES(?, ?, ?, ?, ?)"
-        # db.execute(sql, (name, grade, reservation_percente, img_url, short_summary))
-        # db.commit()
-        
-        # print("-"*10)
-        # print(name)
-        # print(grade)
-        # print(reservation_percente)
-        # print(img_url)
-        # print(short_summary)
-        # print("-"*10)
-        # pass
-
-
 
 if __name__ == '__main__':
-    print(get_movie_data())
+    print(get_movie_ranking_data())
