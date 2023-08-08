@@ -1,6 +1,6 @@
 {% extends "./layout.html" %}
 {% block title %}
-index
+    {{ date }}
 {% endblock %}
 {% block main %}
     <table class="table table-bordered table-hover">
@@ -17,7 +17,7 @@ index
         <tbody>
             {% for d in datas %}
             <tr onclick="location.href='{{ d.url }}'" style="cursor: pointer;">
-                <td>{{ d.id }}</td>
+                <td>{{ d.ranking }}등</td>
                 <td>{{ d.name }}</td>
                 <td>{{ d.grade }}점</td>
                 <td>{{ d.reservation_percente }}%</td>

@@ -1,0 +1,12 @@
+{% extends "./layout.html" %}
+{% block title %}
+    day_list
+{% endblock %}
+{% block main %}
+    <h1>movie daliy ranking</h1>
+    <ul>
+    {% for d in datas %}
+        <li style="list-style: none;"><a href="{{ url_for('movie_daily_ranking_detail', date=d.date) }}" style="text-decoration: none;">{{ d.date }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
