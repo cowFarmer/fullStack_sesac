@@ -9,4 +9,6 @@
         <li style="list-style: none;"><a href="{{ url_for('movie_daily_ranking_detail', date=d.date) }}" style="text-decoration: none;">{{ d.date }}</a></li>
     {% endfor %}
     </ul>
+    {% set update_url = 'update' %}
+    <input type="button" class="btn btn-primary" value="update" onclick="location.href='{{ url_for(update_url) }}'">
 {% endblock %}
