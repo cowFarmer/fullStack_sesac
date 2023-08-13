@@ -36,18 +36,18 @@ class ConcreteOrderItem(DataGeneratorFactory):
 
 # 생성자
 class DataCreator:
+    def __init__(self):
+        self.category_map = {
+            "user": ConcreteUser(),
+            "store": ConcreteStore(),
+            "item": ConcreteItem(),
+            "order": ConcreteOrder(),
+            "orderitem": ConcreteOrderItem()
+        }
+        
     def data_category(self, category: str):
-        # TODO if문 제거할 수 있는 방향 고려하기 
-        if category == "user":
-            return ConcreteUser()
-        elif category == "store":
-            return ConcreteStore()
-        elif category == "item":
-            return ConcreteItem()
-        elif category == "order":
-            return ConcreteOrder()
-        elif category == "orderitem":
-            return ConcreteOrderItem()
+        if category in self.category_map:
+            return self.category_map[category]
         else:
             raise ValueError("DataCreator를 확인해 주세요")
 
